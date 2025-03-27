@@ -23,23 +23,19 @@ public class Game : MonoBehaviour
 
     public Game(Team team1, Team team2, Ball ball)
     {
-        this.team1 = team1;
-        this.team2 = team2;
-        //this.ball = ball;
-        this.timeToPlay = 0f;
-        this.isPlaying = false;
+        Debug.Log("Constructor de Game");
+        //No se ejecuta nunca si no lo llamo desde otra clase
     }
 
     private void Start(){
+
+        this.InitializeTeams();
+
         this.scoreTeam1Text = GameObject.Find("ScoreTeam1").GetComponent<TextMeshProUGUI>();
         this.scoreTeam2Text = GameObject.Find("ScoreTeam2").GetComponent<TextMeshProUGUI>();
         this.timerText = GameObject.Find("Timer").GetComponent<TextMeshProUGUI>();
         this.ball = GameObject.Find("Ball").GetComponent<Ball>();
         
-        this.SetTeam1("Team1", new Character());
-        this.SetTeam2("Team2", new Character());
-
-
         this.StartGame();
     }
 
@@ -50,8 +46,6 @@ public class Game : MonoBehaviour
         this.UpdateTimer();
 
         this.timerText.text = this.GetLeftTime().ToString("0");
-
-
         
     }
 
@@ -61,8 +55,14 @@ public class Game : MonoBehaviour
         }
     }
 
+    private void InitializeTeams(){
+        this.SetTeam1("Team 1", GameObject.Find("PlayerTeam1").GetComponent<Character>());
+        this.SetTeam2("Team 2", GameObject.Find("PlayerTeam2").GetComponent<Character>());
+    }
+
     public void StartGame(){
         this.isPlaying = true;
+        this.timeToPlay = 0f;
         this.MAX_TIME_TO_PLAY = 120f;
     }
 

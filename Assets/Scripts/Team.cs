@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
-public class Team : MonoBehaviour
+public class Team 
 {
     private string teamName;
     private Character character; //Personaje del equipo
@@ -48,7 +48,7 @@ public class Team : MonoBehaviour
     }
 
     public void ResetPosition(){
-        
+        character.ResetPosition();
     }
 
 }
