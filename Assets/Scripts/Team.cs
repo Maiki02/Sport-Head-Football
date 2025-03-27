@@ -7,11 +7,16 @@ using UnityEngine.SocialPlatforms.Impl;
 public class Team : MonoBehaviour
 {
     private string teamName;
-    private Character character;
-    private int score = 0;
+    private Character character; //Personaje del equipo
+    private int score = 0; //Cantidad de goles del equipo
 
-    public Team(string teamName, Character character)
+    private GameObject Goal; //Portería del equipo
+    private TeamSide teamSide; //Lado del equipo: Equipo 1 o 2
+
+
+    public Team(TeamSide teamSide, string teamName, Character character)
     {
+        this.teamSide = teamSide;
         this.teamName = teamName;
         this.character = character;
         this.score = 0;
@@ -37,9 +42,13 @@ public class Team : MonoBehaviour
         this.score = 0;
     }
 
-    public void AddScore(int score)
+    public void AddScore()
     {
-        this.score += score;
+        this.score++;
+    }
+
+    public void ResetPosition(){
+        
     }
 
 }

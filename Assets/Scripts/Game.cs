@@ -25,7 +25,7 @@ public class Game : MonoBehaviour
     {
         this.team1 = team1;
         this.team2 = team2;
-        this.ball = ball;
+        //this.ball = ball;
         this.timeToPlay = 0f;
         this.isPlaying = false;
     }
@@ -34,17 +34,23 @@ public class Game : MonoBehaviour
         this.scoreTeam1Text = GameObject.Find("ScoreTeam1").GetComponent<TextMeshProUGUI>();
         this.scoreTeam2Text = GameObject.Find("ScoreTeam2").GetComponent<TextMeshProUGUI>();
         this.timerText = GameObject.Find("Timer").GetComponent<TextMeshProUGUI>();
-        Debug.Log("Comienza el juego: "+ this.scoreTeam1Text);
+        this.ball = GameObject.Find("Ball").GetComponent<Ball>();
+        
+        this.SetTeam1("Team1", new Character());
+        this.SetTeam2("Team2", new Character());
+
+
         this.StartGame();
     }
 
     private void Update(){
-        this.scoreTeam1Text.text = "0";
-        this.scoreTeam2Text.text = "0";
+        this.scoreTeam1Text.text = this.team1.GetScore().ToString();
+        this.scoreTeam2Text.text = this.team2.GetScore().ToString();
 
         this.UpdateTimer();
 
         this.timerText.text = this.GetLeftTime().ToString("0");
+
 
         
     }
@@ -61,20 +67,33 @@ public class Game : MonoBehaviour
     }
 
     private float GetLeftTime(){
-        Debug.Log("Tiempo restante: "+ (MAX_TIME_TO_PLAY - this.timeToPlay) +
-        " Tiempo transcurrido: "+ this.timeToPlay + 
-        " Tiempo total: "+ MAX_TIME_TO_PLAY);
         return this.MAX_TIME_TO_PLAY - this.timeToPlay;
+    }
+
+
+    /* Dada el lado del equipo, se incrementa el marcador del equipo, se reinicia la pelota y se reproduce el sonido del gol */
+    public void GoalScored(TeamSide teamSide){
+        if(teamSide == TeamSide.Team1){
+            this.team1.AddScore();
+        } else if(teamSide == TeamSide.Team2){
+            this.team2.AddScore();
+        }
+
+        //TODO: Reproducir sonido de gol
+
+        this.ball.ResetPosition();    
+        this.team1.ResetPosition();
+        this.team2.ResetPosition();
     }
 
     private void SetTeam1(string teamName, Character character)
     {
-        this.team1 = new Team(teamName, character);
+        this.team1 = new Team(TeamSide.Team1, teamName, character);
     }
 
     private void SetTeam2(string teamName, Character character)
     {
-        this.team2 = new Team(teamName, character);
+        this.team2 = new Team(TeamSide.Team2, teamName, character);
     }
     
 }

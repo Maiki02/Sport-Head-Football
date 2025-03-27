@@ -4,23 +4,30 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    Rigidbody2D rb;
+    private Game game;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        
+        game = GameObject.Find("Game").GetComponent<Game>();
+
+        ResetPosition();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ResetPosition()
     {
-        
+        transform.position = new Vector3(0, 0, 0);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        
+        Debug.Log("OnTriggerEnter2D");
+        if (other.gameObject.CompareTag("GoalLine"))
+        {
+            //Si la etiqueta de GoalLine, contiene "Team1" entonces el equipo 2 anotó
+            TeamSide teamSide = other.gameObject.name.Contains("Team1") ? TeamSide.Team2 : TeamSide.Team1;
+            game.GoalScored(teamSide);
+        }
     }
+
 }

@@ -53,12 +53,12 @@ public class Character : MonoBehaviour
         this.setIsGrounded(Physics2D.Raycast(bodyRb.position, Vector2.down, GROUND_CHECK_DISTANCE, groundLayer));
 
         float horizontalInput = Input.GetAxis("Horizontal");
-        bool isJumping = Input.GetKeyDown(KeyCode.UpArrow);
+        bool isPressJump = Input.GetKeyDown(KeyCode.UpArrow);
         bodyRb.velocity = new Vector2(horizontalInput * speed, bodyRb.velocity.y);
 
-        if (isJumping && isGrounded)
+        if (isPressJump && isGrounded)
         {
-            bodyRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            this.Jump();
         }
 
         bool isPressKick = Input.GetKeyDown(KeyCode.Space);
@@ -69,7 +69,7 @@ public class Character : MonoBehaviour
         if (isPressKick)
         {
             //Pateamos
-            StartKicking();
+            Kick();
         }
 
         if(kickTimer >= kickDuration){
@@ -79,7 +79,14 @@ public class Character : MonoBehaviour
 
     }
 
-     public void StartKicking()
+    //Si no está sobre el suelo,se le aplica una fuerza vertical que lo impulsa simulando el salto.
+    public void Jump()
+    {
+        if(!this.isGrounded) return;
+        bodyRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+    }
+
+    public void Kick()
     {
         if (!isCurrentlyKicking)
         {
@@ -87,7 +94,7 @@ public class Character : MonoBehaviour
             kickTimer = 0f;
 
             JointMotor2D motor = feetHinge.motor;
-            //Validar si quiero mantener la pierna arriba o no
+            //TODO: Validar si quiero mantener la pierna arriba o no
             //Si quiero mantenerla, creo que no debo validar que esté en el limite izquierdo
             motor.motorSpeed = !IsInLeftLimit() ? kickSpeed : 0f;
             feetHinge.motor = motor;
