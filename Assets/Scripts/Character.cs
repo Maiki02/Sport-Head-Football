@@ -68,13 +68,12 @@ public class Character : MonoBehaviour
         // Lógica de patada con temporizador
         if (isPressKick)
         {
-            Debug.Log("Pateamos");
+            //Pateamos
             StartKicking();
-        
         }
 
         if(kickTimer >= kickDuration){
-            Debug.Log("Devolvemos el pie");
+            //Devolvemos la patada
             this.ReturnedFeet();
         }
 
@@ -100,11 +99,7 @@ public class Character : MonoBehaviour
         isCurrentlyKicking = false;
         
         JointMotor2D motor = feetHinge.motor;
-        motor.motorSpeed = IsInRightLimit() ? 0f: -returnSpeed;
-        if(IsInRightLimit()){
-            Debug.Log("Estamos en el LIMITE");
-        }
-
+        motor.motorSpeed = IsInRightLimit() ? 0f: -returnSpeed; //Si la patada llegó a su limite, seteamos la velocidad en 0.
         feetHinge.motor = motor;
     }
 
