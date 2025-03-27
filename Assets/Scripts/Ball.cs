@@ -21,10 +21,6 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Pelota colisiona con un objeto");
-        if (collision.gameObject.tag == "Ground")
-        {
-            //rb.velocity = new Vector2(0, 0);
-        }
+        
     }
 }
