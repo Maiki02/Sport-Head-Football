@@ -32,6 +32,11 @@ public class Character : MonoBehaviour
         feetHinge.useMotor = true;
     }
 
+    public void SetPosition(Vector2 position)
+    {
+        bodyRb.position = position;
+        bodyRb.velocity = Vector2.zero;
+    }
     public bool getIsGrounded()
     {
         return isGrounded;
@@ -47,12 +52,14 @@ public class Character : MonoBehaviour
         return feetHinge;
     }
 
-    public Vector2 GetBodyPosition(){
+    public Vector2 GetBodyPosition()
+    {
         return bodyRb.position;
     }
 
     //Funcion de validación para seteaar si el Character está sobre el suelo o no
-    protected void CheckIsGrounded(){
+    protected void CheckIsGrounded()
+    {
         this.setIsGrounded(Physics2D.Raycast(bodyRb.position, Vector2.down, GROUND_CHECK_DISTANCE, groundLayer));
     }
 
@@ -72,7 +79,7 @@ public class Character : MonoBehaviour
             //TODO: Validar si quiero mantener la pierna arriba o no
             //Si quiero mantenerla, creo que no debo validar que esté en el limite maayor
             this.SetMotorSpeed(!IsAtMaxLimit() ? this.getKickSpeed() : 0f);
-        } 
+        }
     }
 
     public void Move(float horizontalInput)
@@ -80,7 +87,8 @@ public class Character : MonoBehaviour
         bodyRb.velocity = new Vector2(horizontalInput * speed, bodyRb.velocity.y);
     }
 
-    protected void UpdateKick(bool isPressKick){
+    protected void UpdateKick(bool isPressKick)
+    {
         kickTimer += Time.deltaTime;
 
         if (isPressKick)
@@ -88,7 +96,8 @@ public class Character : MonoBehaviour
             Kick(); //Pateamos
         }
 
-        if(kickTimer >= kickDuration){
+        if (kickTimer >= kickDuration)
+        {
             //Devolvemos la patada
             this.ReturnedFeet();
         }
@@ -97,22 +106,25 @@ public class Character : MonoBehaviour
     private void ReturnedFeet()
     {
         isCurrentlyKicking = false;
-        
+
         //Si la patada llegó a su limite menor, seteamos la velocidad en 0.
-        this.SetMotorSpeed(IsAtMinLimit() ? 0f: -this.getReturnSpeed());
+        this.SetMotorSpeed(IsAtMinLimit() ? 0f : -this.getReturnSpeed());
     }
 
-    public void SetMotorSpeed(float speed){
+    public void SetMotorSpeed(float speed)
+    {
         JointMotor2D motor = feetHinge.motor;
         motor.motorSpeed = speed;
         feetHinge.motor = motor;
     }
 
-    public virtual float getReturnSpeed(){
+    public virtual float getReturnSpeed()
+    {
         return returnSpeed;
     }
 
-    public virtual float getKickSpeed(){
+    public virtual float getKickSpeed()
+    {
         return kickSpeed;
     }
 
@@ -126,7 +138,8 @@ public class Character : MonoBehaviour
         return feetHinge.jointAngle <= feetHinge.limits.min;
     }
 
-    public void ResetPosition(){
+    public void ResetPosition()
+    {
 
     }
 

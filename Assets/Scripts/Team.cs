@@ -47,8 +47,9 @@ public class Team
         this.score++;
     }
 
-    public void ResetPosition(){
-        character.ResetPosition();
+    public void SetPositionCharacter(Vector2 position)
+    {
+        this.character.SetPosition(position);
     }
 
 }

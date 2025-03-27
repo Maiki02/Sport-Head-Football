@@ -82,8 +82,8 @@ public class Game : MonoBehaviour
         //TODO: Reproducir sonido de gol
 
         this.ball.ResetPosition();    
-        this.team1.ResetPosition();
-        this.team2.ResetPosition();
+        this.team1.SetPositionCharacter(new Vector2(8,-2));
+        this.team2.SetPositionCharacter(new Vector2(-8,-2));
     }
 
     private void SetTeam1(string teamName, Character character)
