@@ -31,13 +31,12 @@ public class Game : MonoBehaviour
     }
 
     private void Start(){
-
-        this.InitializeTeams();
-
         this.scoreTeam1Text = GameObject.Find("ScoreTeam1").GetComponent<TextMeshProUGUI>();
         this.scoreTeam2Text = GameObject.Find("ScoreTeam2").GetComponent<TextMeshProUGUI>();
         this.timerText = GameObject.Find("Timer").GetComponent<TextMeshProUGUI>();
         this.ball = GameObject.Find("Ball").GetComponent<Ball>();
+
+        this.InitializeTeams();
     }
 
     private void Update(){
@@ -104,7 +103,8 @@ public class Game : MonoBehaviour
 
     private void InitializeTeams(){
         this.SetTeam1("Team 1", GameObject.Find("PlayerTeam1").GetComponent<Character>());
-        this.SetTeam2("Team 2", GameObject.Find("PlayerTeam2").GetComponent<Character>());
+        //this.SetTeam2("Team 2", GameObject.Find("PlayerTeam2 (Human)").GetComponent<Character>());
+        this.SetTeam2("Team 2", GameObject.Find("PlayerTeam2 (CPU)").GetComponent<Character>());
     }
 
     public void StartGame(){

@@ -22,7 +22,7 @@ public class Character : MonoBehaviour
 
     const float GROUND_CHECK_DISTANCE = 0.6f; // Distancia para detectar el suelo
     [SerializeField] private LayerMask groundLayer; // LayerMask para detectar el suelo
-    void Start()
+    public virtual void Start()
     {
         Debug.Log("Start Character");
         bodyRb = transform.Find("Body").GetComponent<Rigidbody2D>();
@@ -69,7 +69,7 @@ public class Character : MonoBehaviour
         bodyRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 
-    public void Kick()
+    public virtual void Kick()
     {
         if (!isCurrentlyKicking)
         {
