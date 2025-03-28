@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-public class PlayerTwo : Character {
+public class PlayerTwo : Rival {
 
     void Update()
     {
@@ -24,27 +24,5 @@ public class PlayerTwo : Character {
         bool isPressKick = Input.GetKeyDown(KeyCode.Space);
         this.UpdateKick(isPressKick);
 
-    }
-
-    //Intercambiamos las funciones porque el personaje 2 está dado vuelta
-    public override bool IsAtMaxLimit()
-    {
-        return GetFeetHinge().jointAngle <= GetFeetHinge().limits.max;
-    }
-
-    public override bool IsAtMinLimit()
-    {
-        return GetFeetHinge().jointAngle >= GetFeetHinge().limits.min;
-    }
-
-    //También intercambiamos las velocidades de patada porque el personaje 2 está dado vuelta
-    public override float getKickSpeed()
-    {
-        return -base.getKickSpeed();
-    }
-
-    public override float getReturnSpeed()
-    {
-        return -base.getReturnSpeed();
     }
 }

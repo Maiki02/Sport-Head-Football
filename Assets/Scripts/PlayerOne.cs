@@ -21,7 +21,7 @@ public class PlayerOne : Character {
         }
 
         //Logica de la patada y tiempo de la patada
-        bool isPressKick = Input.GetKeyDown(KeyCode.P);
+        bool isPressKick = Input.GetKeyDown(KeyCode.Space);
         this.UpdateKick(isPressKick);
 
     }
