@@ -1,20 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
     
-    void PlayGame()
+    public void PlayGame()
     {
-        Application.LoadLevel("Game");
+        Debug.Log("PlayGame");
+        SceneManager.LoadScene("Game");
+    }
+
+    public void Multiplayer()
+    {
+        Debug.Log("Multiplayer");
+    }
+    public void HowToPlay()
+    {
+        Debug.Log("HowToPlay");
     }
 
 
-
-
-    void QuitGame()
+    public void QuitGame()
     {
+        Debug.Log("Quit");
         Application.Quit();
     }
 }
