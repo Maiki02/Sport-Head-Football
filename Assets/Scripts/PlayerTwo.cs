@@ -6,6 +6,9 @@ public class PlayerTwo : Rival {
 
     void Update()
     {
+        
+        if(!this.CanMove()) return;
+        
         // Checkear si el personaje está en el suelo
         this.CheckIsGrounded();
 
@@ -21,7 +24,7 @@ public class PlayerTwo : Rival {
         }
 
         //Logica de la patada y tiempo de la patada
-        bool isPressKick = Input.GetKeyDown(KeyCode.Space);
+        bool isPressKick = Input.GetKey(KeyCode.Space);
         this.UpdateKick(isPressKick);
 
     }

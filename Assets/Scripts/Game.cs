@@ -24,6 +24,8 @@ public class Game : MonoBehaviour
     private TextMeshProUGUI scoreTeam2Text;
     private TextMeshProUGUI timerText;
 
+    private TextMeshProUGUI startCounterText;
+
     public Game(Team team1, Team team2, Ball ball)
     {
         Debug.Log("Constructor de Game");
@@ -34,9 +36,11 @@ public class Game : MonoBehaviour
         this.scoreTeam1Text = GameObject.Find("ScoreTeam1").GetComponent<TextMeshProUGUI>();
         this.scoreTeam2Text = GameObject.Find("ScoreTeam2").GetComponent<TextMeshProUGUI>();
         this.timerText = GameObject.Find("Timer").GetComponent<TextMeshProUGUI>();
+        this.startCounterText = GameObject.Find("StartCounter").GetComponent<TextMeshProUGUI>();
         this.ball = GameObject.Find("Ball").GetComponent<Ball>();
 
         this.InitializeTeams();
+        this.StartGame();
     }
 
     private void Update(){
@@ -82,10 +86,12 @@ public class Game : MonoBehaviour
     public void UpdateStartGame(){
         if(this.timeToStartCounter > 0f){
             this.timeToStartCounter -= Time.deltaTime;
-            this.timerText.text = this.timeToStartCounter.ToString("0");
+            this.startCounterText.text = this.timeToStartCounter.ToString("0");
             if(this.timeToStartCounter <= 0f){
-                this.StartGame();
+                this.SetIsPlaying(true);
             }
+        } else {
+            this.startCounterText.text = "";
         }
     }
 
@@ -108,9 +114,12 @@ public class Game : MonoBehaviour
     }
 
     public void StartGame(){
-        this.timeToPlay = 0f;
-        this.isPlaying = true;
-        //this.ResetAllPositions(); //Creo que no es necesario porque ya estarían reiniciados después del gol e imposibles de mover.
+        this.InitializeTeams(); //Inicializamos los equipos.
+        this.ResetTimeToStartCounter();
+    }
+
+    public float GetTimeToStartCounter(){
+        return this.timeToStartCounter;
     }
 
     private float GetLeftTime(){
@@ -127,13 +136,13 @@ public class Game : MonoBehaviour
         return !this.isPlaying;
     }
 
-    public void ResetTimeToCelebrateGoal(){
-        this.timeToCelebrateGoal = 2f;
-    }
-
     /* Dada el lado del equipo, se incrementa el marcador del equipo, 
     se reproduce el sonido del gol y comienza la celebración */
     public void GoalScored(TeamSide teamSide){
+        if(!this.isPlaying) return; //Si no se está jugando, no se incrementa el marcador
+        //Esto es porque puede suceder que la pelota entre y salga mientras se está festejando el gol
+
+        
         this.ScoredGoalByTeam(teamSide);
 
         this.PlayGoalSound();
@@ -165,7 +174,7 @@ public class Game : MonoBehaviour
         this.ball.ResetPosition();
         this.team1.SetPositionCharacter(new Vector2(8,-2));
         this.team2.SetPositionCharacter(new Vector2(-8,-2));
-        this.timeToStartCounter = 3f; //Reinicia el contador de tiempo para iniciar el juego
+        this.ResetTimeToStartCounter(); //Reinicia el contador de tiempo para iniciar el juego
     }
 
     private void SetTeam1(string teamName, Character character)
@@ -177,5 +186,16 @@ public class Game : MonoBehaviour
     {
         this.team2 = new Team(TeamSide.Team2, teamName, character);
     }
-    
+
+    public void SetIsPlaying(bool value){
+        this.isPlaying = value;
+    }
+
+    public void ResetTimeToCelebrateGoal(){
+        this.timeToCelebrateGoal = 2f;
+    }
+
+    public void ResetTimeToStartCounter(){
+        this.timeToStartCounter = 3f;
+    }
 }

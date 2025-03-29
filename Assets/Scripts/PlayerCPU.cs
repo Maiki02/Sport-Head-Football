@@ -15,6 +15,9 @@ public class PlayerCPU : Rival {
     }
     void Update()
     {
+        //Si está el contador, no se puede mover
+        if(!this.CanMove()) return;
+
         // Checkear si el personaje esta en el suelo
         //this.CheckIsGrounded();
 

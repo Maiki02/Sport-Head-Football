@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+
+    private Game game;
     private TeamSide teamSide;
     private Rigidbody2D bodyRb; // Rigidbody del cuerpo
+    private Rigidbody2D feetRb; // Rigidbody del pie
     private HingeJoint2D feetHinge; // HingeJoint del pie
 
 
@@ -30,12 +33,20 @@ public class Character : MonoBehaviour
 
         feetHinge = transform.Find("Feet").GetComponent<HingeJoint2D>();
         feetHinge.useMotor = true;
+
+        feetRb = transform.Find("Feet").GetComponent<Rigidbody2D>();
+        
+        game = GameObject.Find("Game").GetComponent<Game>();
+        
     }
 
     public void SetPosition(Vector2 position)
     {
         bodyRb.position = position;
         bodyRb.velocity = Vector2.zero;
+
+        feetRb.position = position;
+        feetRb.velocity = Vector2.zero;
     }
     public bool getIsGrounded()
     {
@@ -138,9 +149,11 @@ public class Character : MonoBehaviour
         return feetHinge.jointAngle <= feetHinge.limits.min;
     }
 
-    public void ResetPosition()
+    public bool CanMove()
     {
-
+        //Validamos que se pueda mover con el contador, porque está la variable para saber si se está jugando o no
+        //Pero si no le permitimos moverse cuando NO se está jugando, no puede festejar el gol :(
+        return this.game.GetTimeToStartCounter() <= 0f;
     }
 
 }
