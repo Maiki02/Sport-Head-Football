@@ -136,7 +136,7 @@ public class Game : MonoBehaviour
         return !this.isPlaying;
     }
 
-    /* Dada el lado del equipo, se incrementa el marcador del equipo, 
+    /* Dado el equipo que anotó, se incrementa el marcador del equipo, 
     se reproduce el sonido del gol y comienza la celebración */
     public void GoalScored(TeamSide teamSide){
         if(!this.isPlaying) return; //Si no se está jugando, no se incrementa el marcador
