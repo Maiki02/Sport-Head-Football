@@ -11,6 +11,8 @@ public class Game : MonoBehaviour
 
     private Ball ball;
 
+    private GameManager gameManager;
+
     private const int MAX_SCORE_TO_WIN = 7;
     private const float MAX_TIME_TO_PLAY = 60f; //Tiempo en segundos
 
@@ -33,14 +35,14 @@ public class Game : MonoBehaviour
     }
 
     private void Start(){
+        this.gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         this.scoreTeam1Text = GameObject.Find("ScoreTeam1").GetComponent<TextMeshProUGUI>();
         this.scoreTeam2Text = GameObject.Find("ScoreTeam2").GetComponent<TextMeshProUGUI>();
         this.timerText = GameObject.Find("Timer").GetComponent<TextMeshProUGUI>();
         this.startCounterText = GameObject.Find("StartCounter").GetComponent<TextMeshProUGUI>();
         this.ball = GameObject.Find("Ball").GetComponent<Ball>();
 
-        this.InitializeTeams();
-        this.StartGame();
+        this.StartGame(this.gameManager.GetGameMode());
     }
 
     private void Update(){
@@ -107,14 +109,21 @@ public class Game : MonoBehaviour
     }
 
 
-    private void InitializeTeams(){
+    private void InitializeTeams(GameMode gameMode){
+        //Seteamos player 1
         this.SetTeam1("Team 1", GameObject.Find("PlayerTeam1").GetComponent<Character>());
-        //this.SetTeam2("Team 2", GameObject.Find("PlayerTeam2 (Human)").GetComponent<Character>());
-        this.SetTeam2("Team 2", GameObject.Find("PlayerTeam2 (CPU)").GetComponent<Character>());
+        
+        //Seteamos player 2 en base a la selección del menú
+        if(gameMode == GameMode.ONE_PLAYER){
+            this.SetTeam2("Team 2", GameObject.Find("PlayerTeam2 (CPU)").GetComponent<Character>());
+        } else if(gameMode == GameMode.TWO_PLAYERS){ 
+            this.SetTeam2("Team 2", GameObject.Find("PlayerTeam2 (Human)").GetComponent<Character>());
+        }
+
     }
 
-    public void StartGame(){
-        this.InitializeTeams(); //Inicializamos los equipos.
+    public void StartGame(GameMode gameMode){
+        this.InitializeTeams(gameMode); //Inicializamos los equipos.
         this.ResetTimeToStartCounter();
     }
 
