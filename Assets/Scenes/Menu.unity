@@ -938,9 +938,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1414884331}
+      - m_Target: {fileID: 1414884336}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1267,7 +1267,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf8c14918b93a5f4d94966e15903b6bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameMode: 0
 --- !u!4 &1778099322
 Transform:
   m_ObjectHideFlags: 0
