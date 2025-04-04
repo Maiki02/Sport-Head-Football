@@ -131,7 +131,7 @@ public class Game : MonoBehaviour
 
     public void StartGame(GameMode gameMode){
         this.InitializeTeams(gameMode); //Inicializamos los equipos.
-        this.ResetAllPositions(); //Reiniciamos las posiciones de los jugadores, la pelota y contadores.
+        this.ResetTimeToStartCounter(); //Reinicia el contador de tiempo para iniciar el juego
     }
 
     public float GetTimeToStartCounter(){

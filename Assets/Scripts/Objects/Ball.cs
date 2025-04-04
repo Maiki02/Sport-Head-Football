@@ -10,7 +10,7 @@ public class Ball : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        game = GameObject.Find("Game").GetComponent<Game>();
+        game = GameObject.FindWithTag("GameController").GetComponent<Game>();
         rb = GetComponent<Rigidbody2D>();
         ResetPosition();
     }

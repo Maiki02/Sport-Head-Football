@@ -22,7 +22,7 @@ public class Menu : MonoBehaviour
     {
         Debug.Log("Multiplayer"); 
         this.gameManager.SetGameMode(GameMode.TWO_PLAYERS);
-        SceneManager.LoadScene("Multiplayer");
+        SceneManager.LoadScene("Game");
     }
     public void HowToPlay()
     {
