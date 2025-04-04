@@ -27,7 +27,6 @@ public class Character : MonoBehaviour
     [SerializeField] private LayerMask groundLayer; // LayerMask para detectar el suelo
     public virtual void Start()
     {
-        Debug.Log("Start Character");
         bodyRb = transform.Find("Body").GetComponent<Rigidbody2D>();
         bodyRb.freezeRotation = true;
 
@@ -36,7 +35,7 @@ public class Character : MonoBehaviour
 
         feetRb = transform.Find("Feet").GetComponent<Rigidbody2D>();
         
-        game = GameObject.Find("Game").GetComponent<Game>();
+        game = GameObject.FindWithTag("GameController").GetComponent<Game>();
         
     }
 

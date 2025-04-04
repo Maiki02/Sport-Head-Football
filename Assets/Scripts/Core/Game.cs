@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -12,6 +11,11 @@ public class Game : MonoBehaviour
     private Ball ball;
 
     private GameManager gameManager;
+
+    //Prefabs del jugador CPU y humano
+    [SerializeField] private GameObject cpuPrefab; //Prefab del CPU
+    [SerializeField] private GameObject humanPrefab; //Prefab del humano
+
 
     private const int MAX_SCORE_TO_WIN = 7;
     private const float MAX_TIME_TO_PLAY = 60f; //Tiempo en segundos
@@ -41,6 +45,10 @@ public class Game : MonoBehaviour
         this.timerText = GameObject.Find("Timer").GetComponent<TextMeshProUGUI>();
         this.startCounterText = GameObject.Find("StartCounter").GetComponent<TextMeshProUGUI>();
         this.ball = GameObject.Find("Ball").GetComponent<Ball>();
+
+        this.cpuPrefab = Resources.Load<GameObject>("PlayerTeam2 (CPU)"); // Cargamos un prefab del CPU
+        this.humanPrefab = Resources.Load<GameObject>("PlayerTeam2 (Human)"); // Cargamos un prefab del humano
+
 
         this.StartGame(this.gameManager.GetGameMode());
     }
@@ -114,17 +122,16 @@ public class Game : MonoBehaviour
         this.SetTeam1("Team 1", GameObject.Find("PlayerTeam1").GetComponent<Character>());
         
         //Seteamos player 2 en base a la selección del menú
-        if(gameMode == GameMode.ONE_PLAYER){
-            this.SetTeam2("Team 2", GameObject.Find("PlayerTeam2 (CPU)").GetComponent<Character>());
-        } else if(gameMode == GameMode.TWO_PLAYERS){ 
-            this.SetTeam2("Team 2", GameObject.Find("PlayerTeam2 (Human)").GetComponent<Character>());
-        }
+        //Cargamos el prefab "PlayerTeam2 (CPU)" o "PlayerTeam2 (Human)" en base al modo de juego seleccionado
+        //Luego seteamos el equipo 2
+        GameObject playerTeam2GameObject = Instantiate(this.GetPrefabByGameMode(gameMode), new Vector2(-8, -2), Quaternion.identity);
+        this.SetTeam2("Team 2", playerTeam2GameObject.GetComponent<Character>());
 
     }
 
     public void StartGame(GameMode gameMode){
         this.InitializeTeams(gameMode); //Inicializamos los equipos.
-        this.ResetTimeToStartCounter();
+        this.ResetAllPositions(); //Reiniciamos las posiciones de los jugadores, la pelota y contadores.
     }
 
     public float GetTimeToStartCounter(){
@@ -194,6 +201,17 @@ public class Game : MonoBehaviour
     private void SetTeam2(string teamName, Character character)
     {
         this.team2 = new Team(TeamSide.Team2, teamName, character);
+    }
+
+    public GameObject GetPrefabByGameMode(GameMode gameMode){
+        if(gameMode == GameMode.ONE_PLAYER){
+            return this.cpuPrefab;
+        } else if(gameMode == GameMode.TWO_PLAYERS) {
+            return this.humanPrefab;
+        } else {
+            Debug.LogError("Modo de juego no encontrado");
+            return null;
+        }
     }
 
     public void SetIsPlaying(bool value){
