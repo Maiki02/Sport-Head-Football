@@ -90,12 +90,18 @@ public class Ball : MonoBehaviour
         // No hacer nada si la pelota está en el suelo
     }
 
+    public void SetFreezeBall(bool freeze)
+    {
+       this.rb.bodyType = freeze ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic;
+    }
+
 
     public void ResetPosition()
     {
-        transform.position = new Vector3(0, 0, 0);
+        transform.position = new Vector3(0, 2, 0);
         rb.velocity = new Vector2(0, 0);
         rb.angularVelocity = 0; 
+        this.SetFreezeBall(true); //Cada vez que reiniciamos la pelota, la congelamos para que no se mueva
     }
 
     void OnCollisionEnter2D(Collision2D other)

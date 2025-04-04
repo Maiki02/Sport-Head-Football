@@ -99,6 +99,7 @@ public class Game : MonoBehaviour
             this.startCounterText.text = this.timeToStartCounter.ToString("0");
             if(this.timeToStartCounter <= 0f){
                 this.SetIsPlaying(true);
+                this.ball.SetFreezeBall(false); //Descongelamos la pelota para que se pueda mover
             }
         } else {
             this.startCounterText.text = "";
