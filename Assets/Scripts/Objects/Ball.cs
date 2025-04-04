@@ -103,9 +103,9 @@ public class Ball : MonoBehaviour
         Debug.Log("OnCollisionEnter2D");
         if (other.gameObject.CompareTag("Player"))
         {
-            //Si la etiqueta de Player, contiene "Team1" entonces el equipo 1 anotó
+            /*//Si la etiqueta de Player, contiene "Team1" entonces el equipo 1 anotó
             TeamSide teamSide = other.gameObject.name.Contains("Team1") ? TeamSide.Team1 : TeamSide.Team2;
-            game.GoalScored(teamSide);
+            game.GoalScored(teamSide);*/
         }
     }
 
