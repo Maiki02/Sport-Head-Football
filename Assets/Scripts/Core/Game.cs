@@ -89,8 +89,7 @@ public class Game : MonoBehaviour
     //Actualiza la condición para que el juego finalice.
     public void UpdateGameOver(){
         if(this.IsGameOver()){
-            this.isPlaying = false;
-            this.timeToStartCounter = 0f;
+            this.FinishGame();
         }
     }
     public void UpdateStartGame(){
@@ -133,6 +132,25 @@ public class Game : MonoBehaviour
     public void StartGame(GameMode gameMode){
         this.InitializeTeams(gameMode); //Inicializamos los equipos.
         this.ResetTimeToStartCounter(); //Reinicia el contador de tiempo para iniciar el juego
+    }
+
+    public void FinishGame(){
+        this.isPlaying = false;
+        this.timeToStartCounter = 0f;
+        this.gameManager.SetGameResult(this.GetWinner()); 
+        //Seteamos el resultado del juego en el GameManager y cambiamos de esecna
+    }
+
+    public Results GetWinner(){
+        if(this.team1.GetScore() > this.team2.GetScore()){
+            return Results.TEAM1_WIN;
+        } else if(this.team1.GetScore() < this.team2.GetScore()){
+            return Results.TEAM2_WIN;
+        } else if(this.team1.GetScore() == this.team2.GetScore()){
+            return Results.DRAW;
+        } else {
+            return Results.NONE;
+        }
     }
 
     public float GetTimeToStartCounter(){

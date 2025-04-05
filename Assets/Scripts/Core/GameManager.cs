@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour 
 {
     public static GameManager Instance { get; private set; }    
     private GameMode gameMode;
+    private Results gameResult;
     
     private void Awake() 
     {
@@ -29,5 +32,16 @@ public class GameManager : MonoBehaviour
     public GameMode GetGameMode() 
     {
         return this.gameMode;
+    }
+
+    public void SetGameResult(Results gameResult) 
+    {
+        this.gameResult = gameResult;
+        SceneManager.LoadScene("GameOver");
+    }
+
+    public Results GetGameResult() 
+    {
+        return this.gameResult;
     }
 }
