@@ -28,11 +28,11 @@ public class GameOver : MonoBehaviour
     {
         Results result = this.gameManager.GetGameResult();
 
-        if (result == Results.Team1Win)
+        if (result == Results.TEAM1_WIN)
         {
             this.winnerText.text = "Team 1 Wins!";
         }
-        else if (result == Results.Team2Win)
+        else if (result == Results.TEAM2_WIN)
         {
             this.winnerText.text = "Team 2 Wins!";
         }
@@ -42,9 +42,9 @@ public class GameOver : MonoBehaviour
         }
 
         // Actualizar el texto de puntuación
-        int scoreTeam1 = gameManager.GetTeam1().GetScore();
-        int scoreTeam2 = gameManager.GetTeam2().GetScore();
-        this.scoreText.text = $"Score: {scoreTeam1} - {scoreTeam2}";
+        //int scoreTeam1 = gameManager.GetTeam1().GetScore();
+        //int scoreTeam2 = gameManager.GetTeam2().GetScore();
+        this.scoreText.text = $"Score: {0} - {0}";
 
         this.backToMenuText.text = "Back to Menu";
     }
