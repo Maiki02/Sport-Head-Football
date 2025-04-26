@@ -22,10 +22,10 @@ public class Ball : MonoBehaviour
     void Start()
     {
         //Detectamos las paredes para cuando se quede estancada la pelota
-        this.leftWall = GameObject.Find("Wall Left"); 
-        this.rightWall = GameObject.Find("Wall Right");
+        this.leftWall = GameObject.FindGameObjectWithTag("WallLeft"); 
+        this.rightWall = GameObject.FindGameObjectWithTag("WallRight");
 
-        game = GameObject.FindWithTag("GameController").GetComponent<Game>();
+        game = GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>();
         rb = GetComponent<Rigidbody2D>();
         ResetPosition();
     }
@@ -106,12 +106,14 @@ public class Ball : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("OnCollisionEnter2D");
         if (other.gameObject.CompareTag("Player"))
         {
-            /*//Si la etiqueta de Player, contiene "Team1" entonces el equipo 1 anotó
-            TeamSide teamSide = other.gameObject.name.Contains("Team1") ? TeamSide.Team1 : TeamSide.Team2;
-            game.GoalScored(teamSide);*/
+            //Si la etiqueta de Player, entonces obtenemos el player y le sumamos una stat
+            Character player = other.gameObject.GetComponent<Character>();
+            if (player != null)
+            {
+                player.ContactWithBall(); //Sumamos la estadística de patear
+            }
         }
     }
 

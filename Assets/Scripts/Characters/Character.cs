@@ -11,7 +11,7 @@ public class Character : MonoBehaviour, IMovable, IJumper, IKicker
     private Rigidbody2D bodyRb; // Rigidbody del cuerpo
     private Rigidbody2D feetRb; // Rigidbody del pie
     private HingeJoint2D feetHinge; // HingeJoint del pie
-
+    private Dictionary<string, int> stats = new Dictionary<string, int>();
 
     [SerializeField] public float kickSpeed = 800f;  // Velocidad de patada
     [SerializeField] public float returnSpeed = 200f; // Velocidad de retroceso de la patada
@@ -77,6 +77,7 @@ public class Character : MonoBehaviour, IMovable, IJumper, IKicker
     public void Jump()
     {
         bodyRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        this.AddStat("Jump"); //Sumamos la estadística de salto
     }
 
     public virtual void Kick()
@@ -89,6 +90,8 @@ public class Character : MonoBehaviour, IMovable, IJumper, IKicker
             //TODO: Validar si quiero mantener la pierna arriba o no
             //Si quiero mantenerla, creo que no debo validar que esté en el limite maayor
             this.SetMotorSpeed(!IsAtMaxLimit() ? this.getKickSpeed() : 0f);
+
+            this.AddStat("Kick"); //Sumamos la estadística de patada
         }
     }
 
@@ -153,6 +156,25 @@ public class Character : MonoBehaviour, IMovable, IJumper, IKicker
         //Validamos que se pueda mover con el contador, porque está la variable para saber si se está jugando o no
         //Pero si no le permitimos moverse cuando NO se está jugando, no puede festejar el gol :(
         return this.game.GetTimeToStartCounter() <= 0f;
+    }
+
+//Dada una estadistica, se suma 1 a la misma. Si no existe, se crea y se le asigna el valor 1.
+//Ejemplo: si el personaje salta, se le suma 1 a la estadistica "Jump"
+    public void AddStat(string statName)
+    {
+        if (stats.ContainsKey(statName))
+        {
+            stats[statName] += 1;
+        }
+        else
+        {
+            stats.Add(statName, 1);
+        }
+    }
+
+    public void ContactWithBall()
+    {
+        this.AddStat("ContactBall"); //Sumamos la estadística de contacto con la pelota
     }
 
 }

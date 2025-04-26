@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
     private GameMode gameMode;
     private Results gameResult;
 
-    private string nameTeam1 = "Equipo 1";
-    private string nameTeam2 = "Equipo 2";
+    private Team team1;
+    private Team team2;
     private List<Goal> goalLogs = new List<Goal>();
     
     private void Awake() 
@@ -55,20 +55,20 @@ public class GameManager : MonoBehaviour
         return goalLogs;
     }
 
-    public void SetTeamNames(string team1, string team2) 
+    public void SetTeams(Team team1, Team team2)
     {
-        this.nameTeam1 = team1;
-        this.nameTeam2 = team2;
+        this.team1 = team1;
+        this.team2 = team2;
     }
 
     public string GetTeam1Name() 
     {
-        return this.nameTeam1;
+        return this.team1.GetTeamName();
     }
 
     public string GetTeam2Name() 
     {
-        return this.nameTeam2;
+        return this.team2.GetTeamName();
     }
 
     public void AddGoal(int scoreTeam1, int scoreTeam2, int time) 
