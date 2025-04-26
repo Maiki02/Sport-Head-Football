@@ -77,7 +77,7 @@ public class Character : MonoBehaviour, IMovable, IJumper, IKicker
     public void Jump()
     {
         bodyRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        this.AddStat("Jump"); //Sumamos la estadística de salto
+        this.AddStat("Saltos"); //Sumamos la estadística de salto
     }
 
     public virtual void Kick()
@@ -91,7 +91,7 @@ public class Character : MonoBehaviour, IMovable, IJumper, IKicker
             //Si quiero mantenerla, creo que no debo validar que esté en el limite maayor
             this.SetMotorSpeed(!IsAtMaxLimit() ? this.getKickSpeed() : 0f);
 
-            this.AddStat("Kick"); //Sumamos la estadística de patada
+            this.AddStat("Patadas"); //Sumamos la estadística de patada
         }
     }
 
@@ -174,7 +174,12 @@ public class Character : MonoBehaviour, IMovable, IJumper, IKicker
 
     public void ContactWithBall()
     {
-        this.AddStat("ContactBall"); //Sumamos la estadística de contacto con la pelota
+        this.AddStat("Contactos con pelota"); //Sumamos la estadística de contacto con la pelota
+    }
+
+    public Dictionary<string, int> GetStats()
+    {
+        return stats;
     }
 
 }

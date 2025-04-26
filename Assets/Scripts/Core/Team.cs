@@ -37,11 +37,6 @@ public class Team
         return score;
     }
 
-    public string GetName()
-    {
-        return teamName;
-    }
-
     public void ResetScore()
     {
         this.score = 0;

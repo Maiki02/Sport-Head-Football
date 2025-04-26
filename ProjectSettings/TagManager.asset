@@ -11,6 +11,10 @@ TagManager:
   - BackToMenuButton
   - NameTeam2
   - NameTeam1
+  - WallLeft
+  - WallRight
+  - StatsTeam1
+  - StatsTeam2
   layers:
   - Default
   - TransparentFX
@@ -21,7 +25,7 @@ TagManager:
   - Foot
   - Ball
   - Body
-  - 
+  - Wall
   - 
   - 
   - 

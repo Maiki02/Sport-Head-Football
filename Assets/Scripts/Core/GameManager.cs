@@ -61,14 +61,14 @@ public class GameManager : MonoBehaviour
         this.team2 = team2;
     }
 
-    public string GetTeam1Name() 
+    public Team GetTeam1() 
     {
-        return this.team1.GetTeamName();
+        return this.team1;
     }
 
-    public string GetTeam2Name() 
+    public Team GetTeam2() 
     {
-        return this.team2.GetTeamName();
+        return this.team2;
     }
 
     public void AddGoal(int scoreTeam1, int scoreTeam2, int time) 
