@@ -106,8 +106,11 @@ public class Ball : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        Debug.Log("OnCollisionEnter2D: " + other.gameObject.name);
+        if (other.gameObject.layer == LayerMask.NameToLayer("Body") || 
+        other.gameObject.layer == LayerMask.NameToLayer("Foot"))
         {
+            Debug.Log("OnCollisionEnter2D: " + other.gameObject.name);
             //Si la etiqueta de Player, entonces obtenemos el player y le sumamos una stat
             Character player = other.gameObject.GetComponent<Character>();
             if (player != null)

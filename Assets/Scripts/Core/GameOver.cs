@@ -25,6 +25,8 @@ public class GameOver : MonoBehaviour
         this.goalLogsText = GameObject.FindGameObjectWithTag("GoalLog").GetComponent<TextMeshProUGUI>();
         this.nameTeam1Text = GameObject.FindGameObjectWithTag("NameTeam1").GetComponent<TextMeshProUGUI>();
         this.nameTeam2Text = GameObject.FindGameObjectWithTag("NameTeam2").GetComponent<TextMeshProUGUI>();
+        this.statsTeam1Text = GameObject.FindGameObjectWithTag("StatsTeam1").GetComponent<TextMeshProUGUI>();
+        this.statsTeam2Text = GameObject.FindGameObjectWithTag("StatsTeam2").GetComponent<TextMeshProUGUI>(); 
 
         this.UpdateGameOverScreen();
     }
