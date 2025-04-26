@@ -122,6 +122,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &39188305
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 39188307}
+  - component: {fileID: 39188306}
+  m_Layer: 0
+  m_Name: GameOverManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &39188306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39188305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e8aa42e88d927844808c0b59511b5fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &39188307
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39188305}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 503.517, y: 199.02882, z: -2.9355948}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &82316701
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,8 +699,8 @@ GameObject:
   - component: {fileID: 636312880}
   - component: {fileID: 636312879}
   m_Layer: 5
-  m_Name: ResultTeam2
-  m_TagString: Untagged
+  m_Name: NameTeam2
+  m_TagString: NameTeam2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -789,8 +833,8 @@ GameObject:
   - component: {fileID: 1048691232}
   - component: {fileID: 1048691231}
   m_Layer: 5
-  m_Name: ResultTeam1
-  m_TagString: Untagged
+  m_Name: NameTeam1
+  m_TagString: NameTeam1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -924,7 +968,7 @@ GameObject:
   - component: {fileID: 1535359966}
   m_Layer: 5
   m_Name: Result
-  m_TagString: Untagged
+  m_TagString: ResultText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -970,7 +1014,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Ganador
 
-    Team 1'
+    Equipo 1'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1350,3 +1394,4 @@ SceneRoots:
   - {fileID: 2124908072}
   - {fileID: 82316705}
   - {fileID: 2138377402}
+  - {fileID: 39188307}

@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }    
     private GameMode gameMode;
     private Results gameResult;
+
+    private string nameTeam1 = "Equipo 1";
+    private string nameTeam2 = "Equipo 2";
     private List<Goal> goalLogs = new List<Goal>();
     
     private void Awake() 
@@ -50,6 +53,22 @@ public class GameManager : MonoBehaviour
     public List<Goal> GetGoalLogs() 
     {
         return goalLogs;
+    }
+
+    public void SetTeamNames(string team1, string team2) 
+    {
+        this.nameTeam1 = team1;
+        this.nameTeam2 = team2;
+    }
+
+    public string GetTeam1Name() 
+    {
+        return this.nameTeam1;
+    }
+
+    public string GetTeam2Name() 
+    {
+        return this.nameTeam2;
     }
 
     public void AddGoal(int scoreTeam1, int scoreTeam2, int time) 

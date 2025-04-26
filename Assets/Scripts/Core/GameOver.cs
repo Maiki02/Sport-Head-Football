@@ -1,57 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class GameOver : MonoBehaviour 
 {
-    private TextMeshProUGUI gameOverText;
-    private TextMeshProUGUI winnerText;
-    private TextMeshProUGUI scoreText;
-
+    private TextMeshProUGUI nameTeam1Text;
+    private TextMeshProUGUI nameTeam2Text;
+    private TextMeshProUGUI resultText;
     private TextMeshProUGUI goalLogsText;
-    private TextMeshProUGUI backToMenuText;
 
     private GameManager gameManager;
 
     void Start() 
     {
-        this.gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        this.gameOverText = GameObject.Find("GameOver").GetComponent<TextMeshProUGUI>();
-        this.winnerText = GameObject.Find("Winner").GetComponent<TextMeshProUGUI>();
+        this.gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        this.resultText = GameObject.FindGameObjectWithTag("ResultText").GetComponent<TextMeshProUGUI>();
         this.goalLogsText = GameObject.FindGameObjectWithTag("GoalLog").GetComponent<TextMeshProUGUI>();
-        this.scoreText = GameObject.Find("Score").GetComponent<TextMeshProUGUI>();
-        this.backToMenuText = GameObject.Find("BackToMenu").GetComponent<TextMeshProUGUI>();
+        this.nameTeam1Text = GameObject.FindGameObjectWithTag("NameTeam1").GetComponent<TextMeshProUGUI>();
+        this.nameTeam2Text = GameObject.FindGameObjectWithTag("NameTeam2").GetComponent<TextMeshProUGUI>();
 
         this.UpdateGameOverScreen();
     }
 
     private void UpdateGameOverScreen()
     {
+        this.resultText.text = getResultText();
+        this.nameTeam1Text.text = this.gameManager.GetTeam1Name();
+        this.nameTeam2Text.text = this.gameManager.GetTeam2Name();
+        this.goalLogsText.text = getGoalLogsText();
+
+    }
+
+    private string getResultText(){
         Results result = this.gameManager.GetGameResult();
 
         if (result == Results.TEAM1_WIN)
         {
-            this.winnerText.text = "Team 1 Wins!";
+            return "Ganador\n"+this.gameManager.GetTeam1Name();
         }
         else if (result == Results.TEAM2_WIN)
         {
-            this.winnerText.text = "Team 2 Wins!";
+            return "Ganador\n"+this.gameManager.GetTeam2Name();
         }
         else
         {
-            this.winnerText.text = "It's a Draw!";
+            return "Empate";
         }
-
-        // Actualizar el texto de puntuación
-        //int scoreTeam1 = gameManager.GetTeam1().GetScore();
-        //int scoreTeam2 = gameManager.GetTeam2().GetScore();
-
-
-        this.goalLogsText.text = getGoalLogsText();
-
-        this.backToMenuText.text = "Back to Menu";
     }
 
     private string getGoalLogsText()

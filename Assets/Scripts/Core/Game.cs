@@ -18,7 +18,7 @@ public class Game : MonoBehaviour
 
 
     private const int MAX_SCORE_TO_WIN = 7;
-    private const float MAX_TIME_TO_PLAY = 60f; //Tiempo en segundos
+    private const float MAX_TIME_TO_PLAY = 10f; //Tiempo en segundos
 
     private float timeToPlay=0f; //Cuenta el tiempo transcurrido de juego.
     private bool isPlaying=false; //Indica si el juego está en curso o no.
@@ -119,13 +119,13 @@ public class Game : MonoBehaviour
 
     private void InitializeTeams(GameMode gameMode){
         //Seteamos player 1
-        this.SetTeam1("Team 1", GameObject.Find("PlayerTeam1").GetComponent<Character>());
+        this.SetTeam1("Local", GameObject.Find("PlayerTeam1").GetComponent<Character>());
         
         //Seteamos player 2 en base a la selección del menú
         //Cargamos el prefab "PlayerTeam2 (CPU)" o "PlayerTeam2 (Human)" en base al modo de juego seleccionado
         //Luego seteamos el equipo 2
         GameObject playerTeam2GameObject = Instantiate(this.GetPrefabByGameMode(gameMode), new Vector2(-8, -2), Quaternion.identity);
-        this.SetTeam2("Team 2", playerTeam2GameObject.GetComponent<Character>());
+        this.SetTeam2("Visitante", playerTeam2GameObject.GetComponent<Character>());
 
     }
 
@@ -138,6 +138,7 @@ public class Game : MonoBehaviour
         this.isPlaying = false;
         this.timeToStartCounter = 0f;
         this.gameManager.SetGameResult(this.GetWinner()); 
+        this.gameManager.SetTeamNames(this.team1.GetName(), this.team2.GetName()); //Seteamos los nombres de los equipos en el GameManager
         //Seteamos el resultado del juego en el GameManager y cambiamos de esecna
     }
 
