@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }    
     private GameMode gameMode;
     private Results gameResult;
+    private List<Goal> goalLogs = new List<Goal>();
     
     private void Awake() 
     {
@@ -43,5 +45,15 @@ public class GameManager : MonoBehaviour
     public Results GetGameResult() 
     {
         return this.gameResult;
+    }
+
+    public List<Goal> GetGoalLogs() 
+    {
+        return goalLogs;
+    }
+
+    public void AddGoal(int scoreTeam1, int scoreTeam2, int time) 
+    {
+        goalLogs.Add(new Goal(scoreTeam1, scoreTeam2, time));
     }
 }

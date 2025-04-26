@@ -9,6 +9,8 @@ public class GameOver : MonoBehaviour
     private TextMeshProUGUI gameOverText;
     private TextMeshProUGUI winnerText;
     private TextMeshProUGUI scoreText;
+
+    private TextMeshProUGUI goalLogsText;
     private TextMeshProUGUI backToMenuText;
 
     private GameManager gameManager;
@@ -18,6 +20,7 @@ public class GameOver : MonoBehaviour
         this.gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         this.gameOverText = GameObject.Find("GameOver").GetComponent<TextMeshProUGUI>();
         this.winnerText = GameObject.Find("Winner").GetComponent<TextMeshProUGUI>();
+        this.goalLogsText = GameObject.FindGameObjectWithTag("GoalLog").GetComponent<TextMeshProUGUI>();
         this.scoreText = GameObject.Find("Score").GetComponent<TextMeshProUGUI>();
         this.backToMenuText = GameObject.Find("BackToMenu").GetComponent<TextMeshProUGUI>();
 
@@ -44,9 +47,20 @@ public class GameOver : MonoBehaviour
         // Actualizar el texto de puntuación
         //int scoreTeam1 = gameManager.GetTeam1().GetScore();
         //int scoreTeam2 = gameManager.GetTeam2().GetScore();
-        this.scoreText.text = $"Score: {0} - {0}";
+
+
+        this.goalLogsText.text = getGoalLogsText();
 
         this.backToMenuText.text = "Back to Menu";
     }
 
+    private string getGoalLogsText()
+    {
+        string logs = "";
+        foreach (Goal goal in gameManager.GetGoalLogs())
+        {
+            logs += $"{goal.ScoreTeam2} - {goal.ScoreTeam1} | {goal.Time} segundos\n";
+        }
+        return logs;
+    }
 }

@@ -177,8 +177,9 @@ public class Game : MonoBehaviour
         if(!this.isPlaying) return; //Si no se está jugando, no se incrementa el marcador
         //Esto es porque puede suceder que la pelota entre y salga mientras se está festejando el gol
 
-        
         this.ScoredGoalByTeam(teamSide);
+
+        this.gameManager.AddGoal(this.team1.GetScore(), this.team2.GetScore(), (int)this.timeToPlay); //Agregamos el gol al GameManager
 
         this.PlayGoalSound();
 
