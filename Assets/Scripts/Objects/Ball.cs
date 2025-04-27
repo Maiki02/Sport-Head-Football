@@ -112,7 +112,8 @@ public class Ball : MonoBehaviour
         {
             Debug.Log("OnCollisionEnter2D: " + other.gameObject.name);
             //Si la etiqueta de Player, entonces obtenemos el player y le sumamos una stat
-            Character player = other.gameObject.GetComponent<Character>();
+            Character player = other.gameObject.GetComponentInParent<Character>();
+
             if (player != null)
             {
                 player.ContactWithBall(); //Sumamos la estadística de patear
