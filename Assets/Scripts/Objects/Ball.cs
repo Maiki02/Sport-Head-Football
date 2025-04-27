@@ -106,12 +106,11 @@ public class Ball : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("OnCollisionEnter2D: " + other.gameObject.name);
+        //Si la pelota toca al player, (Body o Foot) entonces le sumamos una estadística al player
         if (other.gameObject.layer == LayerMask.NameToLayer("Body") || 
-        other.gameObject.layer == LayerMask.NameToLayer("Foot"))
+            other.gameObject.layer == LayerMask.NameToLayer("Foot"))
         {
-            Debug.Log("OnCollisionEnter2D: " + other.gameObject.name);
-            //Si la etiqueta de Player, entonces obtenemos el player y le sumamos una stat
+            //Obtenemos el componente Character del jugador que tocó la pelota
             Character player = other.gameObject.GetComponentInParent<Character>();
 
             if (player != null)

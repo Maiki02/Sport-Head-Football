@@ -16,11 +16,11 @@ public class GameOver : MonoBehaviour
     private TextMeshProUGUI resultText;
     private TextMeshProUGUI goalLogsText;
 
-    private GameManager gameManager;
+    private GameController gameController;
 
     void Start() 
     {
-        this.gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        this.gameController = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameController>();
         this.resultText = GameObject.FindGameObjectWithTag("ResultText").GetComponent<TextMeshProUGUI>();
         this.goalLogsText = GameObject.FindGameObjectWithTag("GoalLog").GetComponent<TextMeshProUGUI>();
         this.nameTeam1Text = GameObject.FindGameObjectWithTag("NameTeam1").GetComponent<TextMeshProUGUI>();
@@ -34,8 +34,8 @@ public class GameOver : MonoBehaviour
     private void UpdateGameOverScreen()
     {
         this.resultText.text = getResultText();
-        this.nameTeam1Text.text = this.gameManager.GetTeam1().GetTeamName() + "\n" + this.gameManager.GetTeam1().GetScore();
-        this.nameTeam2Text.text = this.gameManager.GetTeam2().GetTeamName() + "\n" + this.gameManager.GetTeam2().GetScore();
+        this.nameTeam1Text.text = gameController.ResultsController.GetTeam1Name() + "\n" + gameController.ResultsController.GetTeam1Score();
+        this.nameTeam2Text.text = gameController.ResultsController.GetTeam2Name() + "\n" + gameController.ResultsController.GetTeam2Score();
         this.statsTeam1Text.text = this.getStatsTeam1();
         this.statsTeam2Text.text = this.getStatsTeam2();
         this.goalLogsText.text = getGoalLogsText();
@@ -43,15 +43,15 @@ public class GameOver : MonoBehaviour
     }
 
     private string getResultText(){
-        Results result = this.gameManager.GetGameResult();
+        Results result = gameController.ResultsController.GetGameResult();
 
         if (result == Results.TEAM1_WIN)
         {
-            return "Ganador\n"+this.gameManager.GetTeam1().GetTeamName();
+            return "Ganador\n"+gameController.ResultsController.GetTeam1Name();
         }
         else if (result == Results.TEAM2_WIN)
         {
-            return "Ganador\n"+this.gameManager.GetTeam2().GetTeamName();
+            return "Ganador\n"+gameController.ResultsController.GetTeam2Name();
         }
         else
         {
@@ -62,7 +62,7 @@ public class GameOver : MonoBehaviour
     private string getGoalLogsText()
     {
         string logs = "";
-        foreach (Goal goal in gameManager.GetGoalLogs())
+        foreach (Goal goal in gameController.GoalLogController.GetGoalLogs())
         {
             logs += $"{goal.ScoreTeam2} - {goal.ScoreTeam1} | {goal.Time} segundos\n";
         }
@@ -71,12 +71,12 @@ public class GameOver : MonoBehaviour
 
     private string getStatsTeam1()
     {
-        return getStatsByDictionary(this.gameManager.GetTeam1().GetCharacter().GetStats());
+        return getStatsByDictionary(gameController.ResultsController.GetStatsTeam1());
     }
 
     private string getStatsTeam2()
     {
-        return getStatsByDictionary(this.gameManager.GetTeam2().GetCharacter().GetStats());
+        return getStatsByDictionary(gameController.ResultsController.GetStatsTeam2());
     }
 
     private string getStatsByDictionary(Dictionary<string, int> stats)

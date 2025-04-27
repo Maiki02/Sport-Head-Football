@@ -10,7 +10,7 @@ public class Game : MonoBehaviour
 
     private Ball ball;
 
-    private GameManager gameManager;
+    private GameController gameController;
 
     //Prefabs del jugador CPU y humano
     [SerializeField] private GameObject cpuPrefab; //Prefab del CPU
@@ -39,7 +39,7 @@ public class Game : MonoBehaviour
     }
 
     private void Start(){
-        this.gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        this.gameController = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameController>();
         this.scoreTeam1Text = GameObject.Find("ScoreTeam1").GetComponent<TextMeshProUGUI>();
         this.scoreTeam2Text = GameObject.Find("ScoreTeam2").GetComponent<TextMeshProUGUI>();
         this.timerText = GameObject.Find("Timer").GetComponent<TextMeshProUGUI>();
@@ -50,7 +50,7 @@ public class Game : MonoBehaviour
         this.humanPrefab = Resources.Load<GameObject>("PlayerTeam2 (Human)"); // Cargamos un prefab del humano
 
 
-        this.StartGame(this.gameManager.GetGameMode());
+        this.StartGame(gameController.GameModeController.GetGameMode());
     }
 
     private void Update(){
@@ -137,9 +137,8 @@ public class Game : MonoBehaviour
     public void FinishGame(){
         this.isPlaying = false;
         this.timeToStartCounter = 0f;
-        this.gameManager.SetGameResult(this.GetWinner()); 
-        this.gameManager.SetTeams(this.team1, this.team2); //Seteamos los nombres de los equipos en el GameManager
-        //Seteamos el resultado del juego en el GameManager y cambiamos de esecna
+        gameController.ResultsController.SetGameResult(this.GetWinner()); //Seteamos el resultado del juego en el GameController
+        gameController.ResultsController.SetTeams(this.team1, this.team2); //Seteamos el nombre del equipo 1 en el GameController
     }
 
     public Results GetWinner(){
@@ -180,7 +179,8 @@ public class Game : MonoBehaviour
 
         this.ScoredGoalByTeam(teamSide);
 
-        this.gameManager.AddGoal(this.team1.GetScore(), this.team2.GetScore(), (int)this.timeToPlay); //Agregamos el gol al GameManager
+        //Agregamos el gol al log de goles
+        gameController.GoalLogController.AddGoal(this.team1.GetScore(), this.team2.GetScore(), (int)this.timeToPlay); 
 
         this.PlayGoalSound();
 
