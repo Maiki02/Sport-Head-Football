@@ -18,7 +18,7 @@ public class Game : MonoBehaviour
 
 
     private const int MAX_SCORE_TO_WIN = 7;
-    private const float MAX_TIME_TO_PLAY = 10f; //Tiempo en segundos
+    private const float MAX_TIME_TO_PLAY = 120f; //Tiempo en segundos
 
     private float timeToPlay=0f; //Cuenta el tiempo transcurrido de juego.
     private bool isPlaying=false; //Indica si el juego está en curso o no.

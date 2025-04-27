@@ -15,6 +15,9 @@ TagManager:
   - WallRight
   - StatsTeam1
   - StatsTeam2
+  - GoalLeftTeam2
+  - GoalRightTeam1
+  - Ball
   layers:
   - Default
   - TransparentFX

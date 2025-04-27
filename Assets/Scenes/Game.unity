@@ -1141,7 +1141,7 @@ GameObject:
   - component: {fileID: 1074960819}
   m_Layer: 0
   m_Name: GoalTeam1
-  m_TagString: Untagged
+  m_TagString: GoalRightTeam1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1824,7 +1824,7 @@ GameObject:
   - component: {fileID: 1846587453}
   m_Layer: 0
   m_Name: GoalTeam2
-  m_TagString: Untagged
+  m_TagString: GoalLeftTeam2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2354,7 +2354,7 @@ GameObject:
   - component: {fileID: 2140362035}
   m_Layer: 7
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
