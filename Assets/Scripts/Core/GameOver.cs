@@ -20,7 +20,7 @@ public class GameOver : MonoBehaviour
 
     void Start() 
     {
-        this.gameController = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameController>();
+        gameController = GameController.Instance;
         this.resultText = GameObject.FindGameObjectWithTag("ResultText").GetComponent<TextMeshProUGUI>();
         this.goalLogsText = GameObject.FindGameObjectWithTag("GoalLog").GetComponent<TextMeshProUGUI>();
         this.nameTeam1Text = GameObject.FindGameObjectWithTag("NameTeam1").GetComponent<TextMeshProUGUI>();

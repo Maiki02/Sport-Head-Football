@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoalLogController
+public class GoalLogController: IResettable
 {
     private List<Goal> goalLogs = new List<Goal>();
 
@@ -16,4 +16,9 @@ public class GoalLogController
         goalLogs.Add(new Goal(scoreTeam1, scoreTeam2, time));
     }
    
+    public void Reset()
+    {
+        goalLogs.Clear();
+    }
+
 }

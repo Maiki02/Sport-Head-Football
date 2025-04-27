@@ -39,7 +39,7 @@ public class Game : MonoBehaviour
     }
 
     private void Start(){
-        this.gameController = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameController>();
+        gameController = GameController.Instance;
         this.scoreTeam1Text = GameObject.Find("ScoreTeam1").GetComponent<TextMeshProUGUI>();
         this.scoreTeam2Text = GameObject.Find("ScoreTeam2").GetComponent<TextMeshProUGUI>();
         this.timerText = GameObject.Find("Timer").GetComponent<TextMeshProUGUI>();

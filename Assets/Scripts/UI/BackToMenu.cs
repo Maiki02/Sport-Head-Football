@@ -8,5 +8,6 @@ public class BackToMenuController : MonoBehaviour
    
    public void BackToMenu() {
         SceneManager.LoadScene("Menu");
+        GameController.Instance.ResetAllControllers();
     }
 }

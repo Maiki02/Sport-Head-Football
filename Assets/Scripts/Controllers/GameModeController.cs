@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameModeController
+public class GameModeController: IResettable
 {
     private GameMode gameMode;
     public void SetGameMode(GameMode gameMode) 
@@ -13,6 +13,11 @@ public class GameModeController
     public GameMode GetGameMode() 
     {
         return this.gameMode;
+    }
+
+    public void Reset()
+    {
+        this.gameMode = GameMode.NONE;
     }
 
 }

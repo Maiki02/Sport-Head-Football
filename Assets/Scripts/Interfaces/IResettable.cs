@@ -1,5 +1,5 @@
 public interface IResettable{
 
-    void ResetPosition();
+    void Reset();
     
 }

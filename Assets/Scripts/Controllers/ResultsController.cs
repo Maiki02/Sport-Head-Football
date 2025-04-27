@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ResultsController
+public class ResultsController: IResettable
 { 
     private Results gameResult;
     private Team team1;
@@ -54,5 +54,12 @@ public class ResultsController
     public Results GetGameResult() 
     {
         return this.gameResult;
+    }
+
+    public void Reset()
+    {
+        this.gameResult = Results.NONE;
+        this.team1 = null;
+        this.team2 = null;
     }
 }

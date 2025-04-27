@@ -26,4 +26,11 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void ResetAllControllers()
+    {
+        GameModeController.Reset();
+        ResultsController.Reset();
+        GoalLogController.Reset();
+    }
 }

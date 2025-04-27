@@ -1,4 +1,6 @@
 public enum GameMode {
     ONE_PLAYER,
-    TWO_PLAYERS
+    TWO_PLAYERS,
+
+    NONE
 }
