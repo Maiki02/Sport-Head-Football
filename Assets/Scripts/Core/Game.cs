@@ -18,7 +18,7 @@ public class Game : MonoBehaviour
 
 
     private const int MAX_SCORE_TO_WIN = 7;
-    private const float MAX_TIME_TO_PLAY = 120f; //Tiempo en segundos
+    private const float MAX_TIME_TO_PLAY = 60f; //Tiempo en segundos
 
     private float timeToPlay=0f; //Cuenta el tiempo transcurrido de juego.
     private bool isPlaying=false; //Indica si el juego está en curso o no.
@@ -26,22 +26,13 @@ public class Game : MonoBehaviour
     private float timeToStartCounter = 3f; //Tiempo de espera para iniciar el juego
     private float timeToCelebrateGoal = 2f; //Tiempo de espera para celebrar el gol
 
-    private TextMeshProUGUI scoreTeam1Text;
-    private TextMeshProUGUI scoreTeam2Text;
+    private List<IScoreObserver> observers = new List<IScoreObserver>();
+
     private TextMeshProUGUI timerText;
-
     private TextMeshProUGUI startCounterText;
-
-    public Game(Team team1, Team team2, Ball ball)
-    {
-        Debug.Log("Constructor de Game");
-        //No se ejecuta nunca si no lo llamo desde otra clase
-    }
 
     private void Start(){
         gameController = GameController.Instance;
-        this.scoreTeam1Text = GameObject.Find("ScoreTeam1").GetComponent<TextMeshProUGUI>();
-        this.scoreTeam2Text = GameObject.Find("ScoreTeam2").GetComponent<TextMeshProUGUI>();
         this.timerText = GameObject.Find("Timer").GetComponent<TextMeshProUGUI>();
         this.startCounterText = GameObject.Find("StartCounter").GetComponent<TextMeshProUGUI>();
         this.ball = GameObject.Find("Ball").GetComponent<Ball>();
@@ -65,9 +56,6 @@ public class Game : MonoBehaviour
         //Si el juego está en curso, se actualiza el tiempo
         this.UpdateTimer();
 
-        //Se actualiza el marcador de los equipos
-        this.UpdateBoardMarker();
-
         //Se actualiza el tiempo de celebración en caso de que no se esté jugando
         this.UpdateTimerCelebration();
     
@@ -79,12 +67,6 @@ public class Game : MonoBehaviour
             this.timerText.text = this.GetLeftTime().ToString("0");
         }
     }
-
-    public void UpdateBoardMarker(){
-        this.scoreTeam1Text.text = this.team1.GetScore().ToString();
-        this.scoreTeam2Text.text = this.team2.GetScore().ToString();
-    }
-
 
     //Actualiza la condición para que el juego finalice.
     public void UpdateGameOver(){
@@ -200,6 +182,8 @@ public class Game : MonoBehaviour
                 Debug.Log("Equipo no encontrado");
                 break;
         }
+
+        this.NotifyObservers(); //Notificamos a los observadores que el marcador ha cambiado
     }
 
     public void PlayGoalSound(){
@@ -245,5 +229,26 @@ public class Game : MonoBehaviour
 
     public void ResetTimeToStartCounter(){
         this.timeToStartCounter = 3f;
+    }
+
+
+
+    //------- OBSERVER LOGIC -----------\\
+    public void AddObserver(IScoreObserver observer)
+    {
+        observers.Add(observer);
+    }
+
+    public void RemoveObserver(IScoreObserver observer)
+    {
+        observers.Remove(observer);
+    }
+
+    private void NotifyObservers()
+    {
+        foreach (var observer in observers)
+        {
+            observer.OnScoreChanged(this.team1.GetScore(), this.team2.GetScore());
+        }
     }
 }
