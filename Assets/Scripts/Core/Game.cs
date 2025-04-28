@@ -33,9 +33,9 @@ public class Game : MonoBehaviour
 
     private void Start(){
         gameController = GameController.Instance;
-        this.timerText = GameObject.Find("Timer").GetComponent<TextMeshProUGUI>();
-        this.startCounterText = GameObject.Find("StartCounter").GetComponent<TextMeshProUGUI>();
-        this.ball = GameObject.Find("Ball").GetComponent<Ball>();
+        this.timerText = GameObject.FindWithTag("Timer").GetComponent<TextMeshProUGUI>();
+        this.startCounterText = GameObject.FindWithTag("StartCounter").GetComponent<TextMeshProUGUI>();
+        this.ball = GameObject.FindWithTag("Ball").GetComponent<Ball>();
 
         this.cpuPrefab = Resources.Load<GameObject>("PlayerTeam2 (CPU)"); // Cargamos un prefab del CPU
         this.humanPrefab = Resources.Load<GameObject>("PlayerTeam2 (Human)"); // Cargamos un prefab del humano
@@ -101,7 +101,7 @@ public class Game : MonoBehaviour
 
     private void InitializeTeams(GameMode gameMode){
         //Seteamos player 1
-        this.SetTeam1("Inter Miami", GameObject.Find("PlayerTeam1").GetComponent<Character>());
+        this.SetTeam1("Inter Miami", GameObject.FindWithTag("Player").GetComponent<Character>());
         
         //Seteamos player 2 en base a la selección del menú
         //Cargamos el prefab "PlayerTeam2 (CPU)" o "PlayerTeam2 (Human)" en base al modo de juego seleccionado

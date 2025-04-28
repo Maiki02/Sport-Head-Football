@@ -18,6 +18,8 @@ TagManager:
   - GoalLeftTeam2
   - GoalRightTeam1
   - Ball
+  - ScoreTeam1
+  - ScoreTeam2
   layers:
   - Default
   - TransparentFX

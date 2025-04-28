@@ -7,8 +7,8 @@ public class ScoreUIUpdater : MonoBehaviour, IScoreObserver
 
     private void Start()
     {
-        this.scoreTeam1Text = GameObject.Find("ScoreTeam1").GetComponent<TextMeshProUGUI>();
-        this.scoreTeam2Text = GameObject.Find("ScoreTeam2").GetComponent<TextMeshProUGUI>();
+        this.scoreTeam1Text = GameObject.FindWithTag("ScoreTeam1").GetComponent<TextMeshProUGUI>();
+        this.scoreTeam2Text = GameObject.FindWithTag("ScoreTeam2").GetComponent<TextMeshProUGUI>();
         Game game = FindObjectOfType<Game>();
         game.AddObserver(this);
     }
