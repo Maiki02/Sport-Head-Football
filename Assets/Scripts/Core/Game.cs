@@ -126,13 +126,16 @@ public class Game : MonoBehaviour
     public Results GetWinner(){
         if(this.team1.GetScore() > this.team2.GetScore()){
             return Results.TEAM1_WIN;
-        } else if(this.team1.GetScore() < this.team2.GetScore()){
-            return Results.TEAM2_WIN;
-        } else if(this.team1.GetScore() == this.team2.GetScore()){
-            return Results.DRAW;
-        } else {
-            return Results.NONE;
         }
+        
+        if(this.team1.GetScore() < this.team2.GetScore()){
+            return Results.TEAM2_WIN;
+        }
+        
+        if(this.team1.GetScore() == this.team2.GetScore()){
+            return Results.DRAW;
+        }
+        return Results.NONE;
     }
 
     public float GetTimeToStartCounter(){

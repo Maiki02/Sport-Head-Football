@@ -888,7 +888,7 @@ GameObject:
   - component: {fileID: 860465765}
   m_Layer: 5
   m_Name: Timer
-  m_TagString: Untagged
+  m_TagString: Timer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1705,7 +1705,7 @@ GameObject:
   - component: {fileID: 1352741792}
   m_Layer: 5
   m_Name: StartCounter
-  m_TagString: Untagged
+  m_TagString: StartCounter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
