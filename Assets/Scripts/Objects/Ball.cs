@@ -27,6 +27,8 @@ public class Ball : MonoBehaviour
 
         game = GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>();
         rb = GetComponent<Rigidbody2D>();
+        
+
         ResetPosition();
     }
 

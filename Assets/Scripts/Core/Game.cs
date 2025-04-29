@@ -24,7 +24,8 @@ public class Game : MonoBehaviour
     private bool isPlaying=false; //Indica si el juego está en curso o no.
 
     private float timeToStartCounter = 3f; //Tiempo de espera para iniciar el juego
-    private float timeToCelebrateGoal = 2f; //Tiempo de espera para celebrar el gol
+    private float timeToCelebrateGoal = 0f; //Tiempo de espera para celebrar el gol
+    //Inicia en 0f y se reinicia a 2f cuando se anota un gol.
 
     private List<IScoreObserver> observers = new List<IScoreObserver>();
 
@@ -80,6 +81,7 @@ public class Game : MonoBehaviour
             this.startCounterText.text = this.timeToStartCounter.ToString("0");
             if(this.timeToStartCounter <= 0f){
                 this.SetIsPlaying(true);
+
                 this.ball.SetFreezeBall(false); //Descongelamos la pelota para que se pueda mover
             }
         } else {
