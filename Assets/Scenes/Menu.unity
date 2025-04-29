@@ -644,7 +644,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Exit
+  m_text: Salir
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cab78706cc7c1ca44b49d877a75441c7, type: 2}
   m_sharedMaterial: {fileID: -5938229426371692764, guid: cab78706cc7c1ca44b49d877a75441c7, type: 2}
@@ -946,7 +946,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Multiplayer
+  m_text: Multijugador
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cab78706cc7c1ca44b49d877a75441c7, type: 2}
   m_sharedMaterial: {fileID: -5938229426371692764, guid: cab78706cc7c1ca44b49d877a75441c7, type: 2}
@@ -1724,7 +1724,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Play vs CPU
+  m_text: Jugar vs CPU
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cab78706cc7c1ca44b49d877a75441c7, type: 2}
   m_sharedMaterial: {fileID: -5938229426371692764, guid: cab78706cc7c1ca44b49d877a75441c7, type: 2}
@@ -1858,7 +1858,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: How to play?
+  m_text: "\xBFC\xF3mo jugar?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cab78706cc7c1ca44b49d877a75441c7, type: 2}
   m_sharedMaterial: {fileID: -5938229426371692764, guid: cab78706cc7c1ca44b49d877a75441c7, type: 2}
