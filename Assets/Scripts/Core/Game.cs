@@ -40,8 +40,8 @@ public class Game : MonoBehaviour
         this.cpuPrefab = Resources.Load<GameObject>("PlayerTeam2 (CPU)"); // Cargamos un prefab del CPU
         this.humanPrefab = Resources.Load<GameObject>("PlayerTeam2 (Human)"); // Cargamos un prefab del humano
 
-
         this.StartGame(gameController.GameModeController.GetGameMode());
+        //this.StartGame(GameMode.TWO_PLAYERS); Para TEST
     }
 
     private void Update(){
@@ -217,6 +217,7 @@ public class Game : MonoBehaviour
         } else if(gameMode == GameMode.TWO_PLAYERS) {
             return this.humanPrefab;
         } else {
+            
             Debug.LogError("Modo de juego no encontrado");
             return null;
         }
