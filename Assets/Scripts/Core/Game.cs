@@ -18,7 +18,7 @@ public class Game : MonoBehaviour
 
 
     private const int MAX_SCORE_TO_WIN = 7;
-    private const float MAX_TIME_TO_PLAY = 60f; //Tiempo en segundos
+    private const float MAX_TIME_TO_PLAY = 5f; //Tiempo en segundos
 
     private float timeToPlay=0f; //Cuenta el tiempo transcurrido de juego.
     private bool isPlaying=false; //Indica si el juego está en curso o no.
@@ -107,7 +107,7 @@ public class Game : MonoBehaviour
         //Cargamos el prefab "PlayerTeam2 (CPU)" o "PlayerTeam2 (Human)" en base al modo de juego seleccionado
         //Luego seteamos el equipo 2
         GameObject playerTeam2GameObject = Instantiate(this.GetPrefabByGameMode(gameMode), new Vector2(-8, -2), Quaternion.identity);
-        this.SetTeam2("Barcelona", playerTeam2GameObject.GetComponent<Character>());
+        this.SetTeam2("Al-Nassr", playerTeam2GameObject.GetComponent<Character>());
 
     }
 
