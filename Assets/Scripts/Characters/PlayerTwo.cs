@@ -22,7 +22,7 @@ public class PlayerTwo : Rival {
         }
 
         //Logica de la patada y tiempo de la patada
-        bool isPressKick = Input.GetKey(KeyCode.Space);
+        bool isPressKick = Input.GetKey(KeyCode.P);
         this.UpdateKick(isPressKick);
 
     }

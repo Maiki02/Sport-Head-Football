@@ -234,7 +234,7 @@ public class PlayerCPU : Rival
 
     private IEnumerator ResetKick()
     {
-        yield return new WaitForSeconds(kickDuration);
+        yield return new WaitForSeconds(this.kickDuration);
         isPressKick = false;
     }
 

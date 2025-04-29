@@ -13,6 +13,7 @@ public class GameSoundManager : MonoBehaviour
 
 
     public void PlayBackgroundMusic(){
+        backgroundMusicSource.loop = true; // Repetir la música de fondo
         backgroundMusicSource.Play();
     }
     public void StopBackgroundMusic(){

@@ -12,14 +12,14 @@ public class Character : MonoBehaviour, IMovable, IJumper, IKicker
     private HingeJoint2D feetHinge; // HingeJoint del pie
     private Dictionary<string, int> stats = new Dictionary<string, int>();
 
-    [SerializeField] public float kickSpeed = 800f;  // Velocidad de patada
-    [SerializeField] public float returnSpeed = 200f; // Velocidad de retroceso de la patada
+    [SerializeField] private float kickSpeed = 800f;  // Velocidad de patada
+    [SerializeField] private float returnSpeed = 200f; // Velocidad de retroceso de la patada
     [SerializeField] private bool isCurrentlyKicking = false; // Variable para saber si el personaje está pateando
     [SerializeField] private float kickTimer = 0f; // Temporizador de la patada 
-    [SerializeField] public float kickDuration = 0.2f; // Duración de la patada
+    [SerializeField] protected float kickDuration = 0.2f; // Duración de la patada
 
-    [SerializeField] public float speed = 5f; // Velocidad de movimiento
-    [SerializeField] public float jumpForce = 550f; // Fuerza de salto
+    [SerializeField] private float speed = 5f; // Velocidad de movimiento
+    [SerializeField] private float jumpForce = 550f; // Fuerza de salto
     [SerializeField] private bool isGrounded = false; // Variable para saber si el personaje está en el suelo
 
     const float GROUND_CHECK_DISTANCE = 0.6f; // Distancia para detectar el suelo
