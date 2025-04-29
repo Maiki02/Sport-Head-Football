@@ -15,10 +15,13 @@ public class Game : MonoBehaviour
     //Prefabs del jugador CPU y humano
     [SerializeField] private GameObject cpuPrefab; //Prefab del CPU
     [SerializeField] private GameObject humanPrefab; //Prefab del humano
+    
+    GameSoundManager soundManager; //Referencia al GameSoundManager
+
 
 
     private const int MAX_SCORE_TO_WIN = 7;
-    private const float MAX_TIME_TO_PLAY = 5f; //Tiempo en segundos
+    private const float MAX_TIME_TO_PLAY = 60f; //Tiempo en segundos
 
     private float timeToPlay=0f; //Cuenta el tiempo transcurrido de juego.
     private bool isPlaying=false; //Indica si el juego está en curso o no.
@@ -37,12 +40,14 @@ public class Game : MonoBehaviour
         this.timerText = GameObject.FindWithTag("Timer").GetComponent<TextMeshProUGUI>();
         this.startCounterText = GameObject.FindWithTag("StartCounter").GetComponent<TextMeshProUGUI>();
         this.ball = GameObject.FindWithTag("Ball").GetComponent<Ball>();
-
+        this.soundManager = GameObject.FindWithTag("SoundManager").GetComponent<GameSoundManager>();
         this.cpuPrefab = Resources.Load<GameObject>("PlayerTeam2 (CPU)"); // Cargamos un prefab del CPU
         this.humanPrefab = Resources.Load<GameObject>("PlayerTeam2 (Human)"); // Cargamos un prefab del humano
 
         this.StartGame(gameController.GameModeController.GetGameMode());
         //this.StartGame(GameMode.TWO_PLAYERS); Para TEST
+
+        this.soundManager.PlayBackgroundMusic(); //Reproducimos la música de fondo
     }
 
     private void Update(){
@@ -81,7 +86,7 @@ public class Game : MonoBehaviour
             this.startCounterText.text = this.timeToStartCounter.ToString("0");
             if(this.timeToStartCounter <= 0f){
                 this.SetIsPlaying(true);
-
+                soundManager.PlayWhistleStart(); //Reproducimos el sonido de inicio del juego
                 this.ball.SetFreezeBall(false); //Descongelamos la pelota para que se pueda mover
             }
         } else {
@@ -121,6 +126,8 @@ public class Game : MonoBehaviour
     public void FinishGame(){
         this.isPlaying = false;
         this.timeToStartCounter = 0f;
+        soundManager.PlayWhistleEnd(); //Reproducimos el sonido de fin del juego
+        soundManager.StopBackgroundMusic(); //Detenemos la música de fondo
         gameController.ResultsController.SetGameResult(this.GetWinner()); //Seteamos el resultado del juego en el GameController
         gameController.ResultsController.SetTeams(this.team1, this.team2); //Seteamos el nombre del equipo 1 en el GameController
     }
@@ -193,7 +200,7 @@ public class Game : MonoBehaviour
 
     public void PlayGoalSound(){
         //TODO buscar un sonido de gol y colocarlo para reproducir.
-        //GameObject.Find("GoalSound").GetComponent<AudioSource>().Play();
+        this.soundManager.PlayGoalSound(); //Reproducimos el sonido del gol
     }
 
     public void ResetAllPositions(){

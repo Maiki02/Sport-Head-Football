@@ -453,7 +453,7 @@ HingeJoint2D:
   m_ConnectedAnchor: {x: -0.011034012, y: 0.02137947}
   m_UseMotor: 1
   m_Motor:
-    m_MotorSpeed: -50
+    m_MotorSpeed: 50
     m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:

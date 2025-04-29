@@ -22,6 +22,7 @@ TagManager:
   - ScoreTeam2
   - Timer
   - StartCounter
+  - SoundManager
   layers:
   - Default
   - TransparentFX

@@ -7,6 +7,8 @@ public class Ball : MonoBehaviour
     private Rigidbody2D rb;
     private Game game;
 
+    private GameSoundManager soundManager; //Referencia al GameSoundManager
+
     //Variables que utilizo para destrabar la pelota cuando se queda trabada arriba del arco contra la pared
     [SerializeField] private float inactivityThreshold = 0.1f;    // Velocidad mínima para considerarla inactiva
     private float inactivityTimer = 0f;          // Contador de tiempo de inactividad
@@ -25,6 +27,7 @@ public class Ball : MonoBehaviour
         this.leftWall = GameObject.FindGameObjectWithTag("WallLeft"); 
         this.rightWall = GameObject.FindGameObjectWithTag("WallRight");
 
+        soundManager = GameObject.FindWithTag("SoundManager").GetComponent<GameSoundManager>();
         game = GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>();
         rb = GetComponent<Rigidbody2D>();
         
@@ -120,6 +123,8 @@ public class Ball : MonoBehaviour
                 player.ContactWithBall(); //Sumamos la estadística de patear
             }
         }
+
+        soundManager.PlayBallBounce();
     }
 
     void OnTriggerEnter2D(Collider2D other)

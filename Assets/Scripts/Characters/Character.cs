@@ -4,6 +4,7 @@ using UnityEngine;
 public class Character : MonoBehaviour, IMovable, IJumper, IKicker
 {
 
+    private GameSoundManager soundManager;
     private Game game;
     private TeamSide teamSide;
     private Rigidbody2D bodyRb; // Rigidbody del cuerpo
@@ -25,6 +26,7 @@ public class Character : MonoBehaviour, IMovable, IJumper, IKicker
     [SerializeField] private LayerMask groundLayer; // LayerMask para detectar el suelo
     public virtual void Start()
     {
+
         bodyRb = transform.Find("Body").GetComponent<Rigidbody2D>();
         bodyRb.freezeRotation = true;
 
@@ -34,6 +36,7 @@ public class Character : MonoBehaviour, IMovable, IJumper, IKicker
         feetRb = transform.Find("Feet").GetComponent<Rigidbody2D>();
         
         game = GameObject.FindWithTag("GameController").GetComponent<Game>();
+        soundManager = GameObject.FindWithTag("SoundManager").GetComponent<GameSoundManager>();
         
     }
 
@@ -75,6 +78,7 @@ public class Character : MonoBehaviour, IMovable, IJumper, IKicker
     public void Jump()
     {
         bodyRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        soundManager.PlayJumpSound();
         this.AddStat("Saltos"); //Sumamos la estadística de salto
     }
 
