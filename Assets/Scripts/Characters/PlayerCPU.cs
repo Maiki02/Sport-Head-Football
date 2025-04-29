@@ -5,54 +5,34 @@ public class PlayerCPU : Rival
 {
     // Referencias
     private Transform ball;
-    private Transform ownGoal;
-    private Transform enemyGoal;
-    private Transform playerOne;
 
-    // Estados de la IA
-    private enum AIState 
-    {
-        Defend,
-        Approach,
-        PrepareKick,
-        Kick,
-        Retreat
-    }
-    private AIState currentState = AIState.Defend;
+    private AIState currentState = AIState.DEFEND;
 
-    // Configuración
-    [Header("IA Settings")]
+    // Configuraciónes
     [SerializeField] private float reactionTime = 0.2f;
     [SerializeField] private float kickDistance = 1.5f;
     [SerializeField] private float jumpThreshold = 2.0f;
-    [SerializeField] private float defendPositionX = -5.0f;
+    [SerializeField] private float defendPositionX = -10.0f;
     [SerializeField] private float retreatThreshold = 1.0f;
     [SerializeField] private float approachSpeed = 1.0f;
     [SerializeField] private float defendSpeed = 0.7f;
-    [SerializeField] private float decisionUpdateInterval = 0.1f;
+    [SerializeField] private float decisionUpdateInterval = 0.4f;
 
-    // Variables internas
     private bool isPressKick = false;
-    private Vector2 targetPosition;
-    private float lastDecisionTime = 0f;
     private float horizontalInput = 0f;
     private bool shouldJump = false;
-    private Coroutine aiRoutine;
 
     public override void Start()
     {
         base.Start();
 
-        // Encontrar referencias importantes
+        // Encontrar referencias de pelota y oponente
         ball = GameObject.FindWithTag("Ball").transform;
-        playerOne = GameObject.FindWithTag("Player").transform;
-
-        // Encontrar los arcos
-        ownGoal = GameObject.FindWithTag("GoalLeftTeam2").transform;
-        enemyGoal = GameObject.FindWithTag("GoalRightTeam1").transform;
 
         // Iniciar la corrutina de IA
-        //aiRoutine = StartCoroutine(AIDecisionLoop());
+        //Como hay muchos calculos, decidí hacerlo en una corrutina, 
+        // para que no se ejecute en todos los Updates()
+        StartCoroutine(AIDecisionLoop());
     }
 
     void Update()
@@ -104,48 +84,52 @@ public class PlayerCPU : Rival
         }
     }
 
+    // En esta función, tomo parametros del juego y
+    // se lo paso a una función para que obtenga que acción tiene que hacer el CPU
     private void UpdateAIState()
     {
         Vector2 ballPos = ball.position;
         Vector2 myPos = this.GetBodyPosition();
         float distanceToBall = Vector2.Distance(ballPos, myPos);
         
-        // Verificar si la pelota está en nuestro lado del campo
-        bool ballInOurHalf = ballPos.x < 0;
-        
-        // La pelota está cayendo hacia nosotros
-        bool ballComingDown = ball.GetComponent<Rigidbody2D>().velocity.y < 0;
+        // Verificar si la pelota está en nuestro lado del campo y un poco más del otro
+        bool ballInOurHalf = ballPos.x < 2f;
         
         // Cambiamos el estado según la situación
-        if (ballInOurHalf)
-        {
-            if (distanceToBall < kickDistance && ballPos.y <= myPos.y + 1.5f)
-            {
-                currentState = AIState.Kick;
-            }
-            else if (distanceToBall < jumpThreshold && ballPos.y > myPos.y)
-            {
-                currentState = AIState.PrepareKick;
-            }
-            else
-            {
-                currentState = AIState.Approach;
-            }
-        }
-        else
-        {
-            // Si la pelota está lejos, volvemos a defender
-            if (Mathf.Abs(myPos.x - defendPositionX) > retreatThreshold)
-            {
-                currentState = AIState.Retreat;
-            }
-            else
-            {
-                currentState = AIState.Defend;
-            }
-        }
+        currentState = GetNewState(ballPos, myPos, distanceToBall, ballInOurHalf);
     }
 
+    // Dado los parametros del juego como, la posiición de la pelota, la posición del jugador, 
+    // la distancia a la pelota y si la pelota está en nuestro lado del campo,
+    // se determina el nuevo estado de la IA
+    private AIState GetNewState(Vector2 ballPos, Vector2 myPos, float distanceToBall, bool ballInOurHalf){
+        
+        // Si la pelota está lejos, volvemos a defender
+        if(!ballInOurHalf) return Mathf.Abs(myPos.x - defendPositionX) > retreatThreshold? AIState.RETREAT : AIState.DEFEND;
+        
+
+        if(ballPos.y > myPos.y + 1.5f && ballPos.x > myPos.x + 1.5f){
+            Debug.Log("Se cumple JUMP");
+            return AIState.JUMP;
+        }
+
+        if (distanceToBall < kickDistance && ballPos.y <= myPos.y + 1.5f)
+        {
+            return AIState.KICK;
+        }
+
+        if (distanceToBall < jumpThreshold && ballPos.y > myPos.y)
+        {
+            return AIState.PREPARE_KICK;
+        }
+            
+            return AIState.APPROACH;
+    }
+
+
+    // En base a unos parametros y el estado actual de la IA,
+    // Aplica valores a horizontalInput, shouldJump e isPressKick
+    // para que luego, la acción se aplique en el UPDATE()
     private void MakeDecisions()
     {
         Vector2 ballPos = ball.position;
@@ -154,10 +138,10 @@ public class PlayerCPU : Rival
         
         // Predecir dónde estará la pelota
         Vector2 predictedBallPos = ballPos + ballVelocity * reactionTime;
-        
+        Debug.Log("Current State: " + currentState);
         switch (currentState)
         {
-            case AIState.Defend:
+            case AIState.DEFEND:
                 // Mantener una posición defensiva
                 horizontalInput = CalculateHorizontalInput(myPos.x, defendPositionX, defendSpeed);
                 
@@ -166,7 +150,7 @@ public class PlayerCPU : Rival
                 isPressKick = false;
                 break;
                 
-            case AIState.Approach:
+            case AIState.APPROACH:
                 // Acercarse a la pelota
                 horizontalInput = CalculateHorizontalInput(myPos.x, predictedBallPos.x, approachSpeed);
                 
@@ -175,27 +159,33 @@ public class PlayerCPU : Rival
                 isPressKick = false;
                 break;
                 
-            case AIState.PrepareKick:
+            case AIState.PREPARE_KICK:
                 // Posicionarse para patear
                 horizontalInput = CalculateHorizontalInput(myPos.x, predictedBallPos.x - 0.5f, approachSpeed);
-                
                 // Saltar si la pelota está por encima
                 shouldJump = predictedBallPos.y > myPos.y + 0.5f && this.getIsGrounded();
                 isPressKick = false;
                 break;
                 
-            case AIState.Kick:
+            case AIState.KICK:
                 // Intentar patear
                 horizontalInput = CalculateHorizontalInput(myPos.x, predictedBallPos.x, approachSpeed);
                 isPressKick = true;
                 shouldJump = false;
                 break;
                 
-            case AIState.Retreat:
+            case AIState.RETREAT:
                 // Volver a posición defensiva
                 horizontalInput = CalculateHorizontalInput(myPos.x, defendPositionX, defendSpeed);
                 isPressKick = false;
                 shouldJump = false;
+                break;
+
+            case AIState.JUMP:
+                // Saltar para interceptar la pelota
+                horizontalInput = CalculateHorizontalInput(myPos.x, predictedBallPos.x, approachSpeed);
+                shouldJump = true;
+                isPressKick = false;
                 break;
         }
     }
@@ -205,6 +195,8 @@ public class PlayerCPU : Rival
         float direction = Mathf.Sign(targetX - currentX);
         float distance = Mathf.Abs(targetX - currentX);
         
+    Debug.Log("CurrentX: " + currentX + " TargetX: " + targetX + " Direction: " + direction + " Distance: " + distance);
+
         // Si está muy cerca del objetivo, reducir la velocidad
         if (distance < 0.5f)
         {
@@ -225,46 +217,4 @@ public class PlayerCPU : Rival
         return false;
     }
 
-    public override void Kick()
-    {
-        base.Kick();
-        // Después de patear, volvemos a intentar movernos
-        StartCoroutine(ResetKick());
-    }
-
-    private IEnumerator ResetKick()
-    {
-        yield return new WaitForSeconds(this.kickDuration);
-        isPressKick = false;
-    }
-
-    private void OnDrawGizmos()
-    {
-        // Visualización para debugging (en modo Editor)
-        if (Application.isPlaying)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(this.GetBodyPosition(), kickDistance);
-            
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(this.GetBodyPosition(), jumpThreshold);
-            
-            Gizmos.color = Color.blue;
-            Gizmos.DrawLine(transform.position, new Vector3(defendPositionX, transform.position.y, 0));
-            
-            // Dibujar el estado actual
-            Vector3 labelPosition = transform.position + Vector3.up * 2;
-            UnityEditor.Handles.Label(labelPosition, currentState.ToString());
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("Colisión CPU: " + collision.gameObject.name);
-        if (collision.gameObject.CompareTag("Ball"))
-        {
-            // Si la pelota colisiona con el jugador, intentamos patear
-            isPressKick = true;
-        }
-    }
 }

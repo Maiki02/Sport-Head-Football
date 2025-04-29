@@ -140,7 +140,7 @@ MonoBehaviour:
   isGrounded: 0
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   reactionTime: 0.2
   kickDistance: 1.5
   jumpThreshold: 2
@@ -282,7 +282,7 @@ HingeJoint2D:
   m_ConnectedAnchor: {x: -0.011034012, y: 0.02137947}
   m_UseMotor: 1
   m_Motor:
-    m_MotorSpeed: -50
+    m_MotorSpeed: 50
     m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:
