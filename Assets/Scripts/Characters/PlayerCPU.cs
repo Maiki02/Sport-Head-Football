@@ -138,7 +138,7 @@ public class PlayerCPU : Rival
         
         // Predecir dónde estará la pelota
         Vector2 predictedBallPos = ballPos + ballVelocity * reactionTime;
-        Debug.Log("Current State: " + currentState);
+        //Debug.Log("Current State: " + currentState);
         switch (currentState)
         {
             case AIState.DEFEND:
@@ -195,7 +195,6 @@ public class PlayerCPU : Rival
         float direction = Mathf.Sign(targetX - currentX);
         float distance = Mathf.Abs(targetX - currentX);
         
-    Debug.Log("CurrentX: " + currentX + " TargetX: " + targetX + " Direction: " + direction + " Distance: " + distance);
 
         // Si está muy cerca del objetivo, reducir la velocidad
         if (distance < 0.5f)

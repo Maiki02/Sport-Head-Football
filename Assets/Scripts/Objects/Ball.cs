@@ -129,7 +129,7 @@ public class Ball : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("OnTriggerEnter2D");
+        //Debug.Log("OnTriggerEnter2D");
         if (other.gameObject.CompareTag("GoalLine"))
         {
             //Si la etiqueta de GoalLine, contiene "Team1" entonces el equipo 2 anotó

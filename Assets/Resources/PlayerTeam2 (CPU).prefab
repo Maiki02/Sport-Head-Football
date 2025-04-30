@@ -144,7 +144,7 @@ MonoBehaviour:
   reactionTime: 0.2
   kickDistance: 1.5
   jumpThreshold: 2
-  defendPositionX: -5
+  defendPositionX: -10
   retreatThreshold: 1
   approachSpeed: 1
   defendSpeed: 0.7
