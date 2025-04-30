@@ -24,6 +24,7 @@ public class Character : MonoBehaviour, IMovable, IJumper, IKicker
 
     const float GROUND_CHECK_DISTANCE = 0.6f; // Distancia para detectar el suelo
     [SerializeField] private LayerMask groundLayer; // LayerMask para detectar el suelo
+
     public virtual void Start()
     {
 
@@ -88,9 +89,7 @@ public class Character : MonoBehaviour, IMovable, IJumper, IKicker
         {
             isCurrentlyKicking = true;
             kickTimer = 0f;
-
-            //TODO: Validar si quiero mantener la pierna arriba o no
-            //Si quiero mantenerla, creo que no debo validar que esté en el limite maayor
+            
             this.SetMotorSpeed(!IsAtMaxLimit() ? this.getKickSpeed() : 0f);
 
             this.AddStat("Patadas"); //Sumamos la estadística de patada
@@ -176,7 +175,8 @@ public class Character : MonoBehaviour, IMovable, IJumper, IKicker
 
     public void ContactWithBall()
     {
-        this.AddStat("Contactos con pelota"); //Sumamos la estadística de contacto con la pelota
+        this.AddStat("Contactos con pelota"); 
+        //Sumamos la estadística de contacto con la pelota
     }
 
     public Dictionary<string, int> GetStats()

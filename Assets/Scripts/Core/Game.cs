@@ -7,18 +7,15 @@ public class Game : MonoBehaviour
 {
     private Team team1;
     private Team team2;
-
     private Ball ball;
 
     private GameController gameController;
 
     //Prefabs del jugador CPU y humano
-    [SerializeField] private GameObject cpuPrefab; //Prefab del CPU
-    [SerializeField] private GameObject humanPrefab; //Prefab del humano
+    private GameObject cpuPrefab; //Prefab del CPU
+    private GameObject humanPrefab; //Prefab del humano
     
-    GameSoundManager soundManager; //Referencia al GameSoundManager
-
-
+    private GameSoundManager soundManager; //Referencia al GameSoundManager
 
     private const int MAX_SCORE_TO_WIN = 7;
     private const float MAX_TIME_TO_PLAY = 60f; //Tiempo en segundos
@@ -52,7 +49,7 @@ public class Game : MonoBehaviour
 
     private void Update(){
         
-        //Si el juego está terminado, cambiamos de pantalla TODO
+        //Si el juego está terminado, cambiamos de pantalla
         this.UpdateGameOver();
 
         //Si el contador de tiempo para iniciar el juego, es mayor a 0, se decrementa el contador
@@ -80,10 +77,15 @@ public class Game : MonoBehaviour
             this.FinishGame();
         }
     }
+
     public void UpdateStartGame(){
         if(this.timeToStartCounter > 0f){
             this.timeToStartCounter -= Time.deltaTime;
-            this.startCounterText.text = this.timeToStartCounter.ToString("0");
+
+            //Actualizamos el texto del contador
+            this.startCounterText.text = this.timeToStartCounter.ToString("0"); 
+
+            //Si el contador llega a 0, se inicia el juego
             if(this.timeToStartCounter <= 0f){
                 this.SetIsPlaying(true);
                 soundManager.PlayWhistleStart(); //Reproducimos el sonido de inicio del juego
@@ -156,9 +158,9 @@ public class Game : MonoBehaviour
     }
 
     public bool IsGameOver(){
-        return this.team1.GetScore() >= MAX_SCORE_TO_WIN || 
-        this.team2.GetScore() >= MAX_SCORE_TO_WIN ||
-        this.GetLeftTime() <= 0f;
+        return this.GetLeftTime() <= 0f || 
+        this.team1.GetScore() >= MAX_SCORE_TO_WIN || 
+        this.team2.GetScore() >= MAX_SCORE_TO_WIN;
     }
 
     public bool IsTimeToCelebrateGoal(){

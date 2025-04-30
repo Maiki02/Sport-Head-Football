@@ -30,7 +30,7 @@ public class PlayerCPU : Rival
         ball = GameObject.FindWithTag("Ball").transform;
 
         // Iniciar la corrutina de IA
-        //Como hay muchos calculos, decidí hacerlo en una corrutina, 
+        // Como hay muchos calculos, decidí hacerlo en una corrutina, 
         // para que no se ejecute en todos los Updates()
         StartCoroutine(AIDecisionLoop());
     }
