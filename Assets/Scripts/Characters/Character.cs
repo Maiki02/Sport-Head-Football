@@ -160,9 +160,9 @@ public class Character : MonoBehaviour, IMovable, IJumper, IKicker
         return this.game.GetTimeToStartCounter() <= 0f;
     }
 
-//Dada una estadistica, se suma 1 a la misma. Si no existe, se crea y se le asigna el valor 1.
-//Ejemplo: si el personaje salta, se le suma 1 a la estadistica "Jump"
-    public void AddStat(string statName)
+    //Dada una estadistica, se suma 1 a la misma. Si no existe, se crea y se le asigna el valor 1.
+    //Ejemplo: si el personaje salta, se le suma 1 a la estadistica "Jump"
+    private void AddStat(string statName)
     {
         if (stats.ContainsKey(statName))
         {
